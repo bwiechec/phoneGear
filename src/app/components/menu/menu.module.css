@@ -1,0 +1,32 @@
+.menu {
+  display: flex;
+  align-items: center;
+  padding: 1rem 3rem;
+  justify-content: space-between;
+  /* color: var(--primary-color); */
+  background-color: var(--tertiary-color);
+  font-size: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.menu_options {
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
+  max-width: 50%;
+  height: 24px;
+}
+
+.menu_options a:hover {
+  border-bottom: 1px solid black;
+}
+
+.menu_user_actions {
+  display: flex;
+}
+
+.menu_user_actions svg {
+  font-size: 25px;
+}
