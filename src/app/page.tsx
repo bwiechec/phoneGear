@@ -13,7 +13,7 @@ export default async function Home() {
       <div className={styles.main_about}>
         {aboutUsText.map((section) => {
           return (
-            <div>
+            <div key={section.title}>
               <h2>{section.title}</h2>
               <p>{section.content}</p>
             </div>

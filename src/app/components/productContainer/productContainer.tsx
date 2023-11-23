@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./productContainer.module.css";
 
 interface IProductContainer {
@@ -23,7 +24,7 @@ export default function ProductContainer({
 }: IProductContainer) {
   return (
     <div className={styles.product_container + " container"} key={name}>
-      <img src={imageUrl} alt={name} />
+      <Image src={imageUrl} alt={name} />
       <h5>{name}</h5>
       <p>
         {price.toLocaleString("en-US", {

@@ -55,6 +55,7 @@ const ProductsList = ({
           {categories.map((category) => {
             return (
               <li
+                key={category.id}
                 className={
                   subcategoryId && category.id === subcategoryId
                     ? styles.current_subcategory
@@ -75,6 +76,7 @@ const ProductsList = ({
         {products.map((product) => {
           return (
             <ProductContainer
+              key={product.name}
               name={product.name}
               price={product.price}
               description={product.description}
