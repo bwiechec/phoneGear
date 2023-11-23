@@ -2,12 +2,13 @@ import styles from "./productContainer.module.css";
 
 interface IProductContainer {
   name: string;
-  price: string;
+  price: number;
   description: string;
   imageUrl: string;
   isBestseller: boolean;
   isNew: boolean;
   category: string;
+  currency: string;
 }
 
 export default function ProductContainer({
@@ -18,13 +19,18 @@ export default function ProductContainer({
   isBestseller,
   isNew,
   category,
+  currency,
 }: IProductContainer) {
   return (
-    <div className={styles.product_container}>
-      <h3>{name}</h3>
+    <div className={styles.product_container + " container"} key={name}>
       <img src={imageUrl} alt={name} />
-      <h4>{description}</h4>
-      <p>{price}</p>
+      <h5>{name}</h5>
+      <p>
+        {price.toLocaleString("en-US", {
+          style: "currency",
+          currency: currency,
+        })}
+      </p>
     </div>
   );
 }

@@ -31,7 +31,7 @@ interface ICategoryObject {
   [key: string]: ICategory;
 }
 
-export default async function Cases({
+export default async function Adapters({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -39,7 +39,7 @@ export default async function Cases({
   const { products, categories, currentCategory }: IProductsData =
     await getData(searchParams);
   const subcategoryId = searchParams.subcategoryId ?? "";
-  const categoryId = searchParams.categoryId ?? "1";
+  const categoryId = searchParams.categoryId ?? "2";
   return (
     <PagesList
       products={products}
@@ -115,7 +115,7 @@ export const getCurrentCategoryData = async (categoryId: string) => {
 export const getData = async (searchParams: {
   [key: string]: string | undefined;
 }) => {
-  const categoryId = searchParams.categoryId ?? "1";
+  const categoryId = searchParams.categoryId ?? "2";
   const subcategoryId = searchParams.subcategoryId ?? null;
   const [products, categories, currentCategory]: [
     Array<IProducts>,

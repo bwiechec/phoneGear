@@ -20,7 +20,7 @@ export default async function Home() {
           );
         })}
       </div>
-      <ProductSlider title={"Bestsellers"} />
+      {/* <ProductSlider title={"Bestsellers"} /> */}
     </main>
   );
 }

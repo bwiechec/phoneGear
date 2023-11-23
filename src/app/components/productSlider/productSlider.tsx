@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./productSlider.module.css";
-import productList from "../../utils/products";
+// import productList from "../../utils/products";
 import ProductContainer from "../productContainer/productContainer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -46,7 +46,7 @@ export default function ProductSlider({ title }: IProductSlider) {
         className={styles.product_slider_slider}
         breakpoints={defaultResolutionBreakpoints}
       >
-        {productList.map((product) => {
+        {/* {productList.map((product) => {
           return (
             <SwiperSlide>
               <ProductContainer
@@ -57,10 +57,11 @@ export default function ProductSlider({ title }: IProductSlider) {
                 isBestseller={product.isBestseller}
                 isNew={product.isNew}
                 category={product.category}
+                currency={product.currency}
               />
             </SwiperSlide>
           );
-        })}
+        })} */}
       </Swiper>
     </div>
   );
