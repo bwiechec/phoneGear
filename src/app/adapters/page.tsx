@@ -31,7 +31,7 @@ interface ICategoryObject {
   [key: string]: ICategory;
 }
 
-export default async function Adapters({
+export default async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -51,7 +51,7 @@ export default async function Adapters({
   );
 }
 
-export const getProductData = async (
+const getProductData = async (
   categoryId: string,
   subcategoryId: string | null
 ) => {
@@ -84,7 +84,7 @@ export const getProductData = async (
   return products;
 };
 
-export const getCategoryData = async (categoryId: string) => {
+const getCategoryData = async (categoryId: string) => {
   const res = await fetch(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/categories.json?orderBy="parent"&equalTo="${categoryId}"`
   );
@@ -103,7 +103,7 @@ export const getCategoryData = async (categoryId: string) => {
   return products;
 };
 
-export const getCurrentCategoryData = async (categoryId: string) => {
+const getCurrentCategoryData = async (categoryId: string) => {
   const res = await fetch(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/categories/${categoryId}.json`
   );
@@ -112,9 +112,7 @@ export const getCurrentCategoryData = async (categoryId: string) => {
   return data;
 };
 
-export const getData = async (searchParams: {
-  [key: string]: string | undefined;
-}) => {
+const getData = async (searchParams: { [key: string]: string | undefined }) => {
   const categoryId = searchParams.categoryId ?? "2";
   const subcategoryId = searchParams.subcategoryId ?? null;
   const [products, categories, currentCategory]: [

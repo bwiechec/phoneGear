@@ -1,3 +1,3 @@
-export default async function Empty() {
+export default async function Page() {
   return <></>;
 }
