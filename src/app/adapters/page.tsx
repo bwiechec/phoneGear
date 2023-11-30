@@ -41,4 +41,4 @@ export default async function Page({
   return <PagesList categoryId={categoryId} subcategoryId={subcategoryId} />;
 }
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
