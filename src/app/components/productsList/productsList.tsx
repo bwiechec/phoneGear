@@ -45,7 +45,6 @@ interface IProductsData {
 
 interface IProductsList {
   categoryId: string;
-  subcategoryId: string;
 }
 
 const pages = {
