@@ -24,7 +24,7 @@ export default function ProductContainer({
 }: IProductContainer) {
   return (
     <div className={styles.product_container + " container"} key={name}>
-      <Image src={imageUrl} alt={name} />
+      <img src={imageUrl} alt={name} />
       <h5>{name}</h5>
       <p>
         {price.toLocaleString("en-US", {

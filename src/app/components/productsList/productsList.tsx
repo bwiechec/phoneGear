@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import ProductContainer from "../productContainer/productContainer";
 import styles from "./productsList.module.css";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface IProductsData {
   products: Array<IProducts>;
@@ -50,11 +54,27 @@ const pages = {
   ["3" as string]: "cables",
 };
 
-const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
-  console.log(categoryId);
-  console.log(subcategoryId);
-  const { products, categories, currentCategory }: IProductsData =
-    await getData({ categoryId, subcategoryId });
+const ProductsList = ({ categoryId }: IProductsList) => {
+  // console.log(categoryId);
+  const [productsData, setProductsData] = useState<IProductsData>({
+    products: [],
+    categories: [],
+    currentCategory: null,
+  });
+
+  const params = useSearchParams();
+  const subcategoryId = params.get("subcategoryId") ?? "";
+
+  useEffect(() => {
+    getData({ categoryId, subcategoryId }).then(
+      ({ products, categories, currentCategory }) => {
+        setProductsData({ products, categories, currentCategory });
+      }
+    );
+  }, [subcategoryId]);
+
+  const { products, categories, currentCategory } = productsData;
+
   return (
     <main className={styles.product_list}>
       <div className={styles.product_list_categories}>
@@ -76,7 +96,9 @@ const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
                     : ""
                 }
               >
-                <Link href={"/cases?subcategoryId=" + category.id}>
+                <Link
+                  href={`/${pages[categoryId]}?subcategoryId=${category.id}`}
+                >
                   {category.name}
                 </Link>
               </li>
