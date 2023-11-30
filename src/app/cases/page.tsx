@@ -27,4 +27,12 @@ export default async function Page({
   return <PagesList categoryId={categoryId} subcategoryId={subcategoryId} />;
 }
 
-export const dynamic = "auto";
+// export const dynamic = "force-dynamic";
+
+// export async function generateStaticParams() {
+//   return [
+//     {
+//       subcategoryId: "",
+//     },
+//   ];
+// }
