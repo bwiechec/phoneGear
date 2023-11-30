@@ -65,7 +65,7 @@ const ProductsList = ({ categoryId }: IProductsList) => {
   const subcategoryId = params.get("subcategoryId") ?? "";
 
   useEffect(() => {
-    getData({ categoryId, subcategoryId }).then(
+    getData(categoryId, subcategoryId).then(
       ({ products, categories, currentCategory }) => {
         setProductsData({ products, categories, currentCategory });
       }
@@ -189,7 +189,7 @@ const getCurrentCategoryData = async (categoryId: string) => {
   return data;
 };
 
-const getData = async ({ categoryId, subcategoryId }: IProductsList) => {
+const getData = async (categoryId: string, subcategoryId: string) => {
   const [products, categories, currentCategory]: [
     Array<IProducts>,
     Array<ICategory>,
