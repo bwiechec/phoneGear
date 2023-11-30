@@ -129,4 +129,4 @@ const getData = async (searchParams: { [key: string]: string | undefined }) => {
   return { products, categories, currentCategory: fixedCurrentCategory };
 };
 
-// export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
