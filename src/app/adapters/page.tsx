@@ -130,3 +130,4 @@ const getData = async (searchParams: { [key: string]: string | undefined }) => {
 };
 
 // export const dynamic = "force-dynamic";
+export const generateStaticParams = () => [];
