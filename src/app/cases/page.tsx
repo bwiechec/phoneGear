@@ -17,26 +17,12 @@ interface ICategory {
   parent: number;
 }
 
-interface IProductsData {
-  products: Array<IProducts>;
-  categories: Array<ICategory>;
-  currentCategory: ICategory | null;
-}
-
-interface IProductsObject {
-  [key: string]: IProducts;
-}
-
-interface ICategoryObject {
-  [key: string]: ICategory;
-}
-
 export default async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
   const subcategoryId = searchParams.subcategoryId ?? "";
-  const categoryId = searchParams.categoryId ?? "1";
+  const categoryId = "1";
   return <PagesList categoryId={categoryId} subcategoryId={subcategoryId} />;
 }

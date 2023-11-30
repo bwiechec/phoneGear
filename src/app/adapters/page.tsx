@@ -37,6 +37,6 @@ export default async function Page({
   searchParams: { [key: string]: string | undefined };
 }) {
   const subcategoryId = searchParams.subcategoryId ?? "";
-  const categoryId = searchParams.categoryId ?? "2";
+  const categoryId = "2";
   return <PagesList categoryId={categoryId} subcategoryId={subcategoryId} />;
 }
