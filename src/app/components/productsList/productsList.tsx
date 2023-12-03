@@ -5,6 +5,7 @@ import ProductContainer from "../productContainer/productContainer";
 import styles from "./productsList.module.css";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loading from "../loading/Loading";
 
 interface IProductsData {
   products: Array<IProducts>;
@@ -61,18 +62,41 @@ const ProductsList = ({ categoryId }: IProductsList) => {
     currentCategory: null,
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const params = useSearchParams();
   const subcategoryId = params.get("subcategoryId") ?? "";
 
   useEffect(() => {
+    setIsLoading(true);
+    setProductsData({
+      products: [],
+      categories: [],
+      currentCategory: null,
+    });
     getData(categoryId, subcategoryId).then(
       ({ products, categories, currentCategory }) => {
         setProductsData({ products, categories, currentCategory });
+        setIsLoading(false);
       }
     );
   }, [subcategoryId]);
 
   const { products, categories, currentCategory } = productsData;
+
+  if (isLoading) {
+    return (
+      <main className={styles.product_list}>
+        <div className={styles.product_list_categories}>
+          <h4>Categories</h4>
+          <Loading />
+        </div>
+        <div className={styles.product_list_products}>
+          <Loading />
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.product_list}>
@@ -96,7 +120,8 @@ const ProductsList = ({ categoryId }: IProductsList) => {
                 }
               >
                 <Link
-                  href={`/${pages[categoryId]}?subcategoryId=${category.id}`}
+                  href={`${pages[categoryId]}?subcategoryId=${category.id}`}
+                  shallow={true}
                 >
                   {category.name}
                 </Link>
@@ -106,7 +131,11 @@ const ProductsList = ({ categoryId }: IProductsList) => {
         </ul>
       </div>
       <div className={styles.product_list_products}>
-        {!products.length && <div>test</div>}
+        {!products.length && !isLoading && (
+          <div className={styles.product_list__no_products}>
+            No products in this category
+          </div>
+        )}
 
         {products.map((product) => {
           return (

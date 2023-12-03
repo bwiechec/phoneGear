@@ -121,3 +121,7 @@
     width: 200px;
   }
 }
+
+.product_list__no_products {
+  text-align: center;
+}

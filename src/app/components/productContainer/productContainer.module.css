@@ -11,7 +11,7 @@
 
 .product_container img {
   max-width: 100%;
-  /* aspect-ratio: 1; */
+  /* aspect-ratio: 1 !important; */
 }
 
 .product_container h3,
