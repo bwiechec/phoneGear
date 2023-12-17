@@ -1,11 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import ProductContainer from "../productContainer/productContainer";
 import styles from "./productsList.module.css";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Loading from "../loading/Loading";
 
 interface IProductsData {
   products: Array<IProducts>;
@@ -46,6 +41,7 @@ interface IProductsData {
 
 interface IProductsList {
   categoryId: string;
+  subcategoryId: string;
 }
 
 const pages = {
@@ -54,50 +50,11 @@ const pages = {
   ["3" as string]: "cables",
 };
 
-const ProductsList = ({ categoryId }: IProductsList) => {
-  // console.log(categoryId);
-  const [productsData, setProductsData] = useState<IProductsData>({
-    products: [],
-    categories: [],
-    currentCategory: null,
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const params = useSearchParams();
-  const subcategoryId = params.get("subcategoryId") ?? "";
-
-  useEffect(() => {
-    setIsLoading(true);
-    setProductsData({
-      products: [],
-      categories: [],
-      currentCategory: null,
-    });
-    getData(categoryId, subcategoryId).then(
-      ({ products, categories, currentCategory }) => {
-        setProductsData({ products, categories, currentCategory });
-        setIsLoading(false);
-      }
-    );
-  }, [subcategoryId]);
-
-  const { products, categories, currentCategory } = productsData;
-
-  if (isLoading) {
-    return (
-      <main className={styles.product_list}>
-        <div className={styles.product_list_categories}>
-          <h4>Categories</h4>
-          <Loading />
-        </div>
-        <div className={styles.product_list_products}>
-          <Loading />
-        </div>
-      </main>
-    );
-  }
-
+const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
+  console.log(categoryId);
+  console.log(subcategoryId);
+  const { products, categories, currentCategory }: IProductsData =
+    await getData({ categoryId, subcategoryId });
   return (
     <main className={styles.product_list}>
       <div className={styles.product_list_categories}>
@@ -119,10 +76,7 @@ const ProductsList = ({ categoryId }: IProductsList) => {
                     : ""
                 }
               >
-                <Link
-                  href={`${pages[categoryId]}?subcategoryId=${category.id}`}
-                  shallow={true}
-                >
+                <Link href={"/cases?subcategoryId=" + category.id}>
                   {category.name}
                 </Link>
               </li>
@@ -131,11 +85,7 @@ const ProductsList = ({ categoryId }: IProductsList) => {
         </ul>
       </div>
       <div className={styles.product_list_products}>
-        {!products.length && !isLoading && (
-          <div className={styles.product_list__no_products}>
-            No products in this category
-          </div>
-        )}
+        {!products.length && <div>test</div>}
 
         {products.map((product) => {
           return (
@@ -218,7 +168,7 @@ const getCurrentCategoryData = async (categoryId: string) => {
   return data;
 };
 
-const getData = async (categoryId: string, subcategoryId: string) => {
+const getData = async ({ categoryId, subcategoryId }: IProductsList) => {
   const [products, categories, currentCategory]: [
     Array<IProducts>,
     Array<ICategory>,

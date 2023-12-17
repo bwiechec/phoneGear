@@ -28,9 +28,6 @@ export default function ProductContainer({
         loading="lazy"
         src={imageUrl}
         alt={name}
-        placeholder="blur"
-        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89OpTPQAI8wNPG2YGcgAAAABJRU5ErkJggg=="
-        // priority
         width={532}
         height={582}
         style={{ height: "auto" }}
