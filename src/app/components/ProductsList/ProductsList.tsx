@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ProductContainer from "../ProductContainer/ProductContainer";
-import styles from "./productsList.module.css";
+import styles from "./ProductsList.module.css";
 
 interface IProductsData {
   products: Array<IProducts>;
