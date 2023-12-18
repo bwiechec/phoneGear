@@ -7,6 +7,7 @@
   background-color: var(--shadow);
   /* margin: 0 0 5rem 5rem; */
   cursor: pointer;
+  display: block;
 }
 
 .product_container img {

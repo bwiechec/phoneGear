@@ -2,7 +2,7 @@
 
 import styles from "./productSlider.module.css";
 // import productList from "../../utils/products";
-import ProductContainer from "../productContainer/productContainer";
+import ProductContainer from "../ProductContainer/ProductContainer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";

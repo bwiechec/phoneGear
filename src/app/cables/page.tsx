@@ -1,4 +1,4 @@
-import PagesList from "../components/productsList/productsList";
+import PagesList from "../components/ProductsList/ProductsList";
 
 export default async function Page({
   searchParams,

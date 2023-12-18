@@ -44,16 +44,16 @@
   color: var(--accent);
 }
 
-.product_list_products div {
+.product_list_products a {
   transition: scale 0.3s;
 }
 
-.product_list_products div:hover {
+.product_list_products a:hover {
   scale: 1.02;
 }
 
 @media (max-width: 640px) {
-  .product_list_products div {
+  .product_list_products a {
     width: 100%;
   }
 
@@ -63,7 +63,7 @@
 }
 
 @media (min-width: 640px) and (max-width: 768px) {
-  .product_list_products div {
+  .product_list_products a {
     width: calc((100% - 1rem) / 2);
   }
 
@@ -73,7 +73,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  .product_list_products div {
+  .product_list_products a {
     width: calc((100% - 1rem) / 2);
   }
 
@@ -83,7 +83,7 @@
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
-  .product_list_products div {
+  .product_list_products a {
     width: calc((100% - 2rem) / 3);
   }
 
@@ -93,7 +93,7 @@
 }
 
 @media (min-width: 1280px) and (max-width: 1536px) {
-  .product_list_products div {
+  .product_list_products a {
     width: calc((100% - 3rem) / 4);
   }
 
@@ -103,7 +103,7 @@
 }
 
 @media (min-width: 1536px) and (max-width: 1920px) {
-  .product_list_products div {
+  .product_list_products a {
     width: calc((100% - 4rem) / 5);
   }
 
@@ -113,7 +113,7 @@
 }
 
 @media (min-width: 1920px) {
-  .product_list_products div {
+  .product_list_products a {
     width: calc((100% - 4rem) / 5);
   }
 

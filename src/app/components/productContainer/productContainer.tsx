@@ -1,7 +1,9 @@
 import Image from "next/image";
 import styles from "./productContainer.module.css";
+import Link from "next/link";
 
 interface IProductContainer {
+  id: string;
   name: string;
   price: number;
   description: string;
@@ -13,6 +15,7 @@ interface IProductContainer {
 }
 
 export default function ProductContainer({
+  id,
   name,
   price,
   description,
@@ -23,7 +26,11 @@ export default function ProductContainer({
   currency,
 }: IProductContainer) {
   return (
-    <div className={styles.product_container + " container"} key={name}>
+    <Link
+      className={styles.product_container + " container"}
+      key={name}
+      href={`/product/${id}`}
+    >
       <Image
         loading="lazy"
         src={imageUrl}
@@ -39,6 +46,6 @@ export default function ProductContainer({
           currency: currency,
         })}
       </p>
-    </div>
+    </Link>
   );
 }

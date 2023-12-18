@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ProductContainer from "../productContainer/productContainer";
+import ProductContainer from "../ProductContainer/ProductContainer";
 import styles from "./productsList.module.css";
 
 interface IProductsData {
@@ -9,14 +9,26 @@ interface IProductsData {
 }
 
 interface IProductsObject {
-  [key: string]: IProducts;
+  [key: string]: IProductsApi;
 }
 
 interface ICategoryObject {
   [key: string]: ICategory;
 }
 
+interface IProductsApi {
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  isBestseller: boolean;
+  isNew: boolean;
+  category: string;
+  currency: string;
+}
+
 interface IProducts {
+  id: string;
   name: string;
   price: number;
   description: string;
@@ -33,12 +45,6 @@ interface ICategory {
   parent: number;
 }
 
-interface IProductsData {
-  products: Array<IProducts>;
-  categories: Array<ICategory>;
-  currentCategory: ICategory | null;
-}
-
 interface IProductsList {
   categoryId: string;
   subcategoryId: string;
@@ -51,8 +57,6 @@ const pages = {
 };
 
 const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
-  console.log(categoryId);
-  console.log(subcategoryId);
   const { products, categories, currentCategory }: IProductsData =
     await getData({ categoryId, subcategoryId });
   return (
@@ -90,6 +94,7 @@ const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
         {products.map((product) => {
           return (
             <ProductContainer
+              id={product.id}
               key={product.name}
               name={product.name}
               price={product.price}
@@ -126,6 +131,7 @@ const getProductData = async (
   let products = [];
   for (const key in data) {
     products.push({
+      id: key,
       name: data[key].name,
       price: data[key].price,
       description: data[key].description,
