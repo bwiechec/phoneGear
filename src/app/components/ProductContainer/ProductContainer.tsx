@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./productContainer.module.css";
+import styles from "./ProductContainer.module.css";
 import Link from "next/link";
 
 interface IProductContainer {

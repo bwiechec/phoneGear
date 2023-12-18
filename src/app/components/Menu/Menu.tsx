@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./menu.module.css";
+import styles from "./Menu.module.css";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";

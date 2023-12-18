@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./productSlider.module.css";
+import styles from "./ProductSlider.module.css";
 // import productList from "../../utils/products";
 import ProductContainer from "../ProductContainer/ProductContainer";
 import { Swiper, SwiperSlide } from "swiper/react";

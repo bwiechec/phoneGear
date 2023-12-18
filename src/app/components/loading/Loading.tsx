@@ -1,4 +1,4 @@
-import styles from "./loading.module.css";
+import styles from "./Loading.module.css";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Loading = () => {

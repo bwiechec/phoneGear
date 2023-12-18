@@ -1,4 +1,4 @@
-import style from "./footer.module.css";
+import style from "./Footer.module.css";
 
 export default function Footer() {
   return <footer className={style.footer}>Creator: Bartosz Wiechec</footer>;
