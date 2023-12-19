@@ -1,66 +1,34 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import ProductDetails from "../../components/ProductDetails/ProductDetails";
-import { NumberInput } from "@/app/components/NumberInput/NumberInput";
-import Button from "@mui/material/Button";
-import { GearButton } from "@/app/components/GearButton/GearButton";
+import { IProducts, IProductsApi } from "@/app/lib/types/product";
+import { ProductContextProvider } from "@/app/context/ProductContext";
+import ProductCardInfo from "@/app/components/ProductCardInfo/ProductCardInfo";
+import ProductDetails from "@/app/components/ProductDetails/ProductDetails";
 
 interface IPage {
   productId: string;
 }
 
-interface IProductsApi {
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  isBestseller: boolean;
-  isNew: boolean;
-  category: string;
-  currency: string;
-}
-
-interface IProducts {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  isBestseller: boolean;
-  isNew: boolean;
-  category: string;
-  currency: string;
-}
-
 export default async function Page({ params }: { params: IPage }) {
   const product: IProducts = await getProductData(params.productId);
   return (
-    <div className={styles.product_card}>
-      <div className={styles.product_card_image}>
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          width={532}
-          height={582}
-          style={{ height: "auto" }}
-        />
-      </div>
-      <div className={styles.product_card_info}>
-        <h4>{product.name}</h4>
-        <p>
-          {product.price.toLocaleString("en-US", {
-            style: "currency",
-            currency: product.currency,
-          })}
-        </p>
-        <div style={{ display: "flex", gap: "2rem" }}>
-          <NumberInput aria-label="Quantity Input" min={1} max={99} value={1} />
-          <GearButton>Add to card</GearButton>
+    <ProductContextProvider value={product}>
+      <div className={styles.product_card_container}>
+        <div className={styles.product_card_image}>
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            width={532}
+            height={582}
+            style={{ height: "auto" }}
+          />
         </div>
-        <p>{product.description}</p>
-        <ProductDetails />
+        <div className={styles.product_card}>
+          <ProductCardInfo />
+          <ProductDetails />
+        </div>
       </div>
-    </div>
+    </ProductContextProvider>
   );
 }
 const getProductData = async (productId: string) => {

@@ -1,0 +1,27 @@
+.product_info {
+  -webkit-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
+  border-radius: 1rem;
+  padding: 4rem;
+}
+
+.product_info_actions {
+  display: flex;
+  gap: 2rem;
+}
+
+.product_info h4,
+.product_info_price {
+  text-align: center;
+  margin: 0;
+}
+.product_info_price {
+  margin: 1.5em 0;
+}
+
+@media (max-width: 1024px) {
+  .product_info_actions {
+    flex-direction: column;
+  }
+}
