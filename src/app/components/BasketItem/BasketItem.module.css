@@ -10,7 +10,7 @@
 }
 
 .basket_item_delete {
-  color: var(--text);
+  color: var(--accent);
 }
 
 .basket_item_name {

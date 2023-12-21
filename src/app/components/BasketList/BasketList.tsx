@@ -35,7 +35,6 @@ export default function BasketList() {
       {basket?.length ? (
         <>
           <div className={styles.basket_list}>
-            (
             {basket.map((basketItem) => {
               return (
                 <BasketItem
@@ -45,7 +44,6 @@ export default function BasketList() {
                 />
               );
             })}
-            )
           </div>
           <div className={styles.basket_summary}>
             SUMMARY
