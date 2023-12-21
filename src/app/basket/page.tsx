@@ -1,9 +1,8 @@
-"use client";
-
+import BasketItem from "../components/BasketItem/BasketItem";
+import BasketList from "../components/BasketList/BasketList";
 import { useBasket } from "../context/BasketContext";
+import { IProducts } from "../lib/types/product";
 
 export default async function Page() {
-  const { basket, setBasket } = useBasket();
-  console.log(basket);
-  return <div></div>;
+  return <BasketList />;
 }

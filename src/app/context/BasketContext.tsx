@@ -11,7 +11,7 @@ import { IBasket } from "../lib/types/product";
 
 interface IBasketContext {
   basket: IBasket[];
-  setBasket: Dispatch<SetStateAction<IBasket[]>>;
+  setBasket: (newBasket: IBasket[]) => void; //Dispatch<SetStateAction<IBasket[]>>;
 }
 
 export const BasketContext = createContext<IBasketContext | undefined>(
@@ -28,6 +28,7 @@ export const useBasket = () => {
 
 export function BasketContextProvider({ children }: { children: JSX.Element }) {
   const [basket, setBasket] = useState<IBasket[]>([]);
+  console.log("test");
 
   return (
     <BasketContext.Provider value={{ basket, setBasket }}>

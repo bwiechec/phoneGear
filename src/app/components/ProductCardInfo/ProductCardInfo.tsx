@@ -20,16 +20,15 @@ export default function ProductCardInfo() {
   if (!product) return <Error />;
 
   const handleAddToCard = () => {
-    const newBasket = basket.length
-      ? basket.map((b) => {
-          if (b.product.id === product.id)
-            return {
-              product,
-              quantity,
-            };
-          else return b;
-        })
-      : [{ product, quantity }];
+    let newBasket = [...basket];
+    let inBasket = newBasket.findIndex((b) => b.product.id === product.id);
+
+    if (inBasket < 0)
+      newBasket.push({
+        product,
+        quantity,
+      });
+    else newBasket[inBasket].quantity = quantity + newBasket[inBasket].quantity;
 
     setBasket(newBasket);
   };

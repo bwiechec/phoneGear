@@ -1,0 +1,38 @@
+.basket_item {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  -webkit-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
+  border-radius: 1rem;
+  justify-content: space-around;
+}
+
+.basket_item_delete {
+  color: var(--text);
+}
+
+.basket_item_name {
+  text-align: center;
+}
+
+.basket_item_quantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .basket_item {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .basket_item_delete {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+  }
+}
