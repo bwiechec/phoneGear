@@ -15,9 +15,9 @@ export default function BasketList() {
     product: IProducts
   ) => {
     let newBasket = [...basket];
-    let inBasket = newBasket.findIndex((b) => b.product.id === product.id);
+    let index = newBasket.findIndex((b) => b.product.id === product.id);
 
-    newBasket[inBasket].quantity = value ?? 0;
+    newBasket[index].quantity = value ?? 0;
 
     console.log(`value: ${value}`);
 
@@ -30,6 +30,19 @@ export default function BasketList() {
     basketSummary += item.product.price * item.quantity;
   });
 
+  const handleItemDelete = (product: IProducts) => {
+    let newBasket = [...basket];
+    let index = newBasket.findIndex((b) => b.product.id === product.id);
+
+    if (index !== -1) {
+      newBasket.splice(index, 1);
+    }
+
+    console.log(newBasket);
+
+    setBasket(newBasket);
+  };
+
   return (
     <div className={styles.basket}>
       {basket?.length ? (
@@ -41,6 +54,7 @@ export default function BasketList() {
                   key={basketItem.product.id}
                   basketItem={basketItem}
                   handleQuantityChange={handleQuantityChange}
+                  handleItemDelete={handleItemDelete}
                 />
               );
             })}

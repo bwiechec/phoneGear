@@ -13,11 +13,13 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 interface IBasketItem {
   basketItem: IBasket;
   handleQuantityChange: (value: number | undefined, product: IProducts) => void;
+  handleItemDelete: (product: IProducts) => void;
 }
 
 export default function BasketItem({
   basketItem,
   handleQuantityChange,
+  handleItemDelete,
 }: IBasketItem) {
   const [quantity, setQuantity] = useState(basketItem.quantity);
 
@@ -56,7 +58,10 @@ export default function BasketItem({
           })}{" "}
         </h5>
       </div>
-      <Button className={styles.basket_item_delete}>
+      <Button
+        className={styles.basket_item_delete}
+        onClick={() => handleItemDelete(basketItem.product)}
+      >
         <DeleteOutlinedIcon />
       </Button>
     </div>

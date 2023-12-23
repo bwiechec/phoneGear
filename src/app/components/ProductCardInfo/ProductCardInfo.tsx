@@ -7,11 +7,16 @@ import { GearButton } from "../GearButton/GearButton";
 import styles from "./ProductCardInfo.module.css";
 import { useState } from "react";
 import { useBasket } from "@/app/context/BasketContext";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import GearModal from "../GearModal/GearModal";
+import { Popover, Typography } from "@mui/material";
 
 export default function ProductCardInfo() {
   const product = useProduct();
   const { basket, setBasket } = useBasket();
   const [quantity, setQuantity] = useState(1);
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
   const handleQuantity = (_event: any, value: number | undefined) => {
     setQuantity(value ?? 0);
@@ -31,7 +36,16 @@ export default function ProductCardInfo() {
     else newBasket[inBasket].quantity = quantity + newBasket[inBasket].quantity;
 
     setBasket(newBasket);
+    setAnchorEl(document.querySelector(".menu_basket_button"));
+    console.log(document.querySelector(".menu_basket_button"));
+    setTimeout(() => {
+      setAnchorEl(null);
+    }, 1500);
   };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  console.log(open);
 
   return (
     <div className={styles.product_info}>
@@ -51,6 +65,21 @@ export default function ProductCardInfo() {
           onChange={handleQuantity}
         />
         <GearButton onClick={handleAddToCard}>Add to card</GearButton>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <Typography sx={{ p: 2 }}>Added {product.name} to card</Typography>
+        </Popover>
       </div>
     </div>
   );

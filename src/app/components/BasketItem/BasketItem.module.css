@@ -6,11 +6,12 @@
   -moz-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
   box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
   border-radius: 1rem;
+  gap: 0.5rem;
   justify-content: space-around;
 }
 
 .basket_item_delete {
-  color: var(--accent);
+  color: var(--accent) !important;
 }
 
 .basket_item_name {
@@ -28,6 +29,7 @@
   .basket_item {
     flex-direction: column;
     position: relative;
+    gap: 0;
   }
 
   .basket_item_delete {

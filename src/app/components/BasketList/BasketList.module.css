@@ -26,13 +26,13 @@
 }
 
 .basket_summary_proceed {
-  background-color: var(--accent);
-  color: var(--text);
+  background-color: var(--accent) !important;
+  color: var(--text) !important;
 }
 
 .basket_summary_proceed:hover {
-  background-color: var(--text);
-  color: var(--accent);
+  background-color: var(--text) !important;
+  color: var(--accent) !important;
 }
 
 @media (max-width: 1024px) {

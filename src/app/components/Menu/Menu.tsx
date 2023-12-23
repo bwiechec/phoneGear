@@ -45,7 +45,7 @@ export default function Menu() {
         <Link href="/user">
           <AccountBoxOutlinedIcon />
         </Link>
-        <Link href="/basket">
+        <Link href="/basket" className="menu_basket_button">
           <ShoppingBagOutlinedIcon />
         </Link>
       </div>
