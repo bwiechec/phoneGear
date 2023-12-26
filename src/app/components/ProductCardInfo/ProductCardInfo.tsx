@@ -37,7 +37,7 @@ export default function ProductCardInfo() {
 
     setBasket(newBasket);
     setAnchorEl(document.querySelector(".menu_basket_button"));
-    console.log(document.querySelector(".menu_basket_button"));
+
     setTimeout(() => {
       setAnchorEl(null);
     }, 1500);
@@ -45,7 +45,9 @@ export default function ProductCardInfo() {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  console.log(open);
+
+  const totalQuantity =
+    basket.find((b) => b.product.id === product.id)?.quantity ?? 0;
 
   return (
     <div className={styles.product_info}>
@@ -71,14 +73,17 @@ export default function ProductCardInfo() {
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left",
+            horizontal: "right",
           }}
           transformOrigin={{
             vertical: "top",
             horizontal: "right",
           }}
         >
-          <Typography sx={{ p: 2 }}>Added {product.name} to card</Typography>
+          <Typography sx={{ p: 2 }}>Added {product.name} to card.</Typography>
+          <Typography sx={{ p: 2, pt: 0 }}>
+            Total quantity: {totalQuantity}
+          </Typography>
         </Popover>
       </div>
     </div>

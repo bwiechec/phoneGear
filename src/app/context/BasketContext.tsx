@@ -28,7 +28,6 @@ export const useBasket = () => {
 
 export function BasketContextProvider({ children }: { children: JSX.Element }) {
   const [basket, setBasket] = useState<IBasket[]>([]);
-  console.log("test");
 
   return (
     <BasketContext.Provider value={{ basket, setBasket }}>

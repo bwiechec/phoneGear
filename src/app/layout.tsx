@@ -4,6 +4,7 @@ import "./globals.css";
 import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 import { BasketContextProvider } from "./context/BasketContext";
+import { SettingsContextProvider } from "./context/SettingsContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,16 +18,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const BuildProviderTree: any = (providers: any) => {
+    if (providers.length === 1) {
+      return providers[0];
+    }
+    const A = providers.shift();
+    const B = providers.shift();
+    return BuildProviderTree([
+      ({ children }: any) => (
+        <A>
+          <B>{children}</B>
+        </A>
+      ),
+      ...providers,
+    ]);
+  };
+
+  const Providers = BuildProviderTree([
+    BasketContextProvider,
+    SettingsContextProvider,
+  ]);
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <BasketContextProvider>
+        <Providers>
           <>
             <Menu />
             {children}
             <Footer />
           </>
-        </BasketContextProvider>
+        </Providers>
       </body>
     </html>
   );
