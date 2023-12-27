@@ -14,19 +14,22 @@ export default async function Page({ params }: { params: IPage }) {
   return (
     <ProductContextProvider value={product}>
       <div className={styles.product_card_container}>
-        <div className={styles.product_card_image}>
-          <Image
-            src={product.imageUrl}
-            alt={product.name}
-            width={532}
-            height={582}
-            style={{ height: "auto" }}
-          />
-        </div>
         <div className={styles.product_card}>
-          <ProductCardInfo />
-          <ProductDetails />
+          <div className={styles.product_card_image}>
+            <Image
+              src={product.imageUrl}
+              alt={product.name}
+              width={532}
+              height={582}
+              style={{ height: "auto" }}
+            />
+          </div>
+          <div className={styles.product_card_data}>
+            <ProductCardInfo />
+            <ProductDetails />
+          </div>
         </div>
+        <div className={styles.product_card_similar}>SIMILAR PRODUCTS</div>
       </div>
     </ProductContextProvider>
   );

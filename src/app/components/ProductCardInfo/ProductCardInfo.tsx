@@ -10,7 +10,7 @@ import { useBasket } from "@/app/context/BasketContext";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import GearModal from "../GearModal/GearModal";
-import { Popover, Typography } from "@mui/material";
+import { Popover, Popper, Typography } from "@mui/material";
 
 export default function ProductCardInfo() {
   const product = useProduct();
@@ -67,24 +67,28 @@ export default function ProductCardInfo() {
           onChange={handleQuantity}
         />
         <GearButton onClick={handleAddToCard}>Add to card</GearButton>
-        <Popover
+        <Popper
           id={id}
+          className={styles.product_info_actions_popper}
           open={open}
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
+          placement="bottom-end"
+          // anchorOrigin={{
+          //   vertical: "bottom",
+          //   horizontal: "right",
+          // }}
+          // transformOrigin={{
+          //   vertical: "top",
+          //   horizontal: "right",
+          // }}
         >
-          <Typography sx={{ p: 2 }}>Added {product.name} to card.</Typography>
-          <Typography sx={{ p: 2, pt: 0 }}>
+          <Typography textAlign={"center"} sx={{ p: 2 }}>
+            Added {product.name} to card.
+          </Typography>
+          <Typography textAlign={"center"} sx={{ p: 2, pt: 0 }}>
             Total quantity: {totalQuantity}
           </Typography>
-        </Popover>
+        </Popper>
       </div>
     </div>
   );

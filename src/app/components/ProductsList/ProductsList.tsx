@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ProductContainer from "../ProductContainer/ProductContainer";
 import styles from "./ProductsList.module.css";
+import { Typography } from "@mui/material";
 
 interface IProductsData {
   products: Array<IProducts>;
@@ -89,7 +90,11 @@ const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
         </ul>
       </div>
       <div className={styles.product_list_products}>
-        {!products.length && <div>test</div>}
+        {!products.length && (
+          <Typography textAlign={"center"} width={"100%"}>
+            No products in this category!
+          </Typography>
+        )}
 
         {products.map((product) => {
           return (

@@ -3,19 +3,20 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface ISettings {
-  key: string;
-  value: any;
+  delivery_price: number;
+  free_delivery: number;
 }
 
 interface ISettingsContext {
-  basket: ISettings[];
+  delivery_price: number;
+  free_delivery: number;
 }
 
 export const SettingsContext = createContext<ISettingsContext | undefined>(
   undefined
 );
 
-export const useBasket = () => {
+export const useSettings = () => {
   const context = useContext(SettingsContext);
   if (!context) {
     throw new Error("Use context inside provider!");
@@ -39,7 +40,9 @@ export function SettingsContextProvider({
 
     fetch(url.toString())
       .then((res) => res.json())
-      .then((data) => setSettings(data));
+      .then((data) => {
+        setSettings(data);
+      });
   }, []);
 
   return (

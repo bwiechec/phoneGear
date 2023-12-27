@@ -4,8 +4,7 @@ import { useBasket } from "@/app/context/BasketContext";
 import BasketItem from "../BasketItem/BasketItem";
 import { IProducts } from "@/app/lib/types/product";
 import styles from "./BasketList.module.css";
-import Button from "@mui/material/Button";
-import { it } from "node:test";
+import BasketSummary from "../BasketSummary/BasketSummary";
 
 export default function BasketList() {
   const { basket, setBasket } = useBasket();
@@ -19,16 +18,8 @@ export default function BasketList() {
 
     newBasket[index].quantity = value ?? 0;
 
-    console.log(`value: ${value}`);
-
-    // console.log(newBasket);
     setBasket(newBasket);
   };
-
-  let basketSummary = 0;
-  basket.forEach((item) => {
-    basketSummary += item.product.price * item.quantity;
-  });
 
   const handleItemDelete = (product: IProducts) => {
     let newBasket = [...basket];
@@ -37,8 +28,6 @@ export default function BasketList() {
     if (index !== -1) {
       newBasket.splice(index, 1);
     }
-
-    console.log(newBasket);
 
     setBasket(newBasket);
   };
@@ -59,44 +48,7 @@ export default function BasketList() {
               );
             })}
           </div>
-          <div className={styles.basket_summary}>
-            SUMMARY
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "1rem",
-              }}
-            >
-              <span>Item value:</span>{" "}
-              <span>
-                {basketSummary.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: basket[0]?.product.currency ?? "USD",
-                })}
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "1rem",
-              }}
-            >
-              <span>Delivery value:</span> <span>${123}</span>
-            </div>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "1rem",
-              }}
-            >
-              <span>Total value:</span> <span>${123}</span>
-            </div>
-            <Button className={styles.basket_summary_proceed}>Proceed</Button>
-          </div>
+          <BasketSummary />
         </>
       ) : (
         <div>No products in basket</div>
