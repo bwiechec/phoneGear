@@ -8,6 +8,7 @@
   /* margin: 0 0 5rem 5rem; */
   cursor: pointer;
   display: block;
+  max-height: 582px;
 }
 
 .product_container img {

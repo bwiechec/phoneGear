@@ -43,5 +43,6 @@
 
   .product_card_image {
     margin-inline: auto;
+    width: 100%;
   }
 }

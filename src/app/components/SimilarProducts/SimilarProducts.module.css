@@ -33,7 +33,7 @@
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
-  .product_lisimilar_products_listst_products a {
+  .similar_products_list a {
     width: calc((100% - 2rem) / 3);
   }
 }
@@ -45,13 +45,23 @@
 }
 
 @media (min-width: 1536px) and (max-width: 1920px) {
+  .similar_products {
+    width: 1300px;
+    margin-inline: auto;
+  }
+
   .similar_products_list a {
-    width: calc((100% - 4rem) / 5);
+    width: calc((100% - 3rem) / 4);
   }
 }
 
 @media (min-width: 1920px) {
+  .similar_products {
+    width: 1300px;
+    margin-inline: auto;
+  }
+
   .similar_products_list a {
-    width: calc((100% - 4rem) / 5);
+    width: calc((100% - 3rem) / 4);
   }
 }
