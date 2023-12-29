@@ -1,16 +1,23 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { IProducts, IProductsApi } from "@/app/lib/types/product";
+import { IProduct, IProductApi } from "@/app/lib/types/product";
 import { ProductContextProvider } from "@/app/context/ProductContext";
 import ProductCardInfo from "@/app/components/ProductCardInfo/ProductCardInfo";
 import ProductDetails from "@/app/components/ProductDetails/ProductDetails";
+import SimilarProducts from "@/app/components/SimilarProducts/SimilarProducts";
 
 interface IPage {
   productId: string;
 }
 
 export default async function Page({ params }: { params: IPage }) {
-  const product: IProducts = await getProductData(params.productId);
+  const product: IProduct = await getProductData(params.productId);
+  const similarProducts: IProduct[] = await getSimilarProductData(
+    product.subcategory,
+    params.productId
+  );
+  console.log(similarProducts);
   return (
     <ProductContextProvider value={product}>
       <div className={styles.product_card_container}>
@@ -29,18 +36,19 @@ export default async function Page({ params }: { params: IPage }) {
             <ProductDetails />
           </div>
         </div>
-        <div className={styles.product_card_similar}>SIMILAR PRODUCTS</div>
+        <SimilarProducts similarProducts={similarProducts} />
       </div>
     </ProductContextProvider>
   );
 }
+
 const getProductData = async (productId: string) => {
   const url = new URL(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`
   );
 
   const res = await fetch(url.toString());
-  const data: IProductsApi = await res.json();
+  const data: IProductApi = await res.json();
 
   return {
     id: productId,
@@ -52,5 +60,40 @@ const getProductData = async (productId: string) => {
     isNew: data.isNew,
     category: data.category,
     currency: data.currency,
+    subcategory: data.subcategory,
   };
+};
+
+const getSimilarProductData = async (
+  productSubcategory: string,
+  productId: string
+) => {
+  const url = new URL(
+    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`
+  );
+
+  url.searchParams.append("orderBy", '"subcategory"');
+  url.searchParams.append("equalTo", `"${productSubcategory}"`);
+  url.searchParams.append("limit", '"4"');
+
+  const res = await fetch(url.toString());
+  const data: IProductApi[] = await res.json();
+  let products = [];
+  for (const key in data) {
+    if (key !== productId)
+      products.push({
+        id: key,
+        name: data[key].name,
+        price: data[key].price,
+        description: data[key].description,
+        imageUrl: data[key].imageUrl,
+        isBestseller: data[key].isBestseller,
+        isNew: data[key].isNew,
+        category: data[key].category,
+        currency: data[key].currency,
+        subcategory: data[key].subcategory,
+      });
+  }
+
+  return products.slice(0, 4);
 };

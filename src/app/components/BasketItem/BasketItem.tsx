@@ -1,10 +1,8 @@
 "use client";
 
-import { IBasket, IProducts } from "@/app/lib/types/product";
-import ProductContainer from "../ProductContainer/ProductContainer";
+import { IBasket, IProduct } from "@/app/lib/types/product";
 import { NumberInput } from "../NumberInput/NumberInput";
 import { useEffect, useState } from "react";
-import { GearButton } from "../GearButton/GearButton";
 import styles from "./BasketItem.module.css";
 import Image from "next/image";
 import { Button } from "@mui/material";
@@ -12,8 +10,8 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 interface IBasketItem {
   basketItem: IBasket;
-  handleQuantityChange: (value: number | undefined, product: IProducts) => void;
-  handleItemDelete: (product: IProducts) => void;
+  handleQuantityChange: (value: number | undefined, product: IProduct) => void;
+  handleItemDelete: (product: IProduct) => void;
 }
 
 export default function BasketItem({

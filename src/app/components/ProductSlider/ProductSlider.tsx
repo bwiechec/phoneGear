@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
-interface IProductSlider {
+interface IProductlider {
   title: string;
 }
 
@@ -33,7 +33,7 @@ const defaultResolutionBreakpoints = {
   },
 };
 
-export default function ProductSlider({ title }: IProductSlider) {
+export default function ProductSlider({ title }: IProductlider) {
   return (
     <div className={styles.product_slider}>
       {title && <h2 className={styles.product_slider_title}>{title}</h2>}

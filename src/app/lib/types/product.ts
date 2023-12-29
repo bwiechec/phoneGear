@@ -1,4 +1,4 @@
-export interface IProductsApi {
+export interface IProductApi {
   name: string;
   price: number;
   description: string;
@@ -7,9 +7,10 @@ export interface IProductsApi {
   isNew: boolean;
   category: string;
   currency: string;
+  subcategory: string;
 }
 
-export interface IProducts {
+export interface IProduct {
   id: string;
   name: string;
   price: number;
@@ -19,9 +20,30 @@ export interface IProducts {
   isNew: boolean;
   category: string;
   currency: string;
+  subcategory: string;
 }
 
 export interface IBasket {
-  product: IProducts;
+  product: IProduct;
   quantity: number;
+}
+
+export interface IProductData {
+  products: Array<IProduct>;
+  categories: Array<ICategory>;
+  currentCategory: ICategory | null;
+}
+
+export interface IProductObject {
+  [key: string]: IProductApi;
+}
+
+export interface ICategoryObject {
+  [key: string]: ICategory;
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  parent: number;
 }

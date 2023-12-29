@@ -1,49 +1,32 @@
 import Image from "next/image";
 import styles from "./ProductContainer.module.css";
 import Link from "next/link";
+import { IProduct } from "@/app/lib/types/product";
 
 interface IProductContainer {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  isBestseller: boolean;
-  isNew: boolean;
-  category: string;
-  currency: string;
+  product: IProduct;
 }
 
-export default function ProductContainer({
-  id,
-  name,
-  price,
-  description,
-  imageUrl,
-  isBestseller,
-  isNew,
-  category,
-  currency,
-}: IProductContainer) {
+export default function ProductContainer({ product }: IProductContainer) {
   return (
     <Link
       className={styles.product_container + " container"}
-      key={name}
-      href={`/product/${id}`}
+      key={product.name}
+      href={`/product/${product.id}`}
     >
       <Image
         loading="lazy"
-        src={imageUrl}
-        alt={name}
+        src={product.imageUrl}
+        alt={product.name}
         width={532}
         height={582}
         style={{ height: "auto" }}
       />
-      <h5>{name}</h5>
+      <h5>{product.name}</h5>
       <p>
-        {price.toLocaleString("en-US", {
+        {product.price.toLocaleString("en-US", {
           style: "currency",
-          currency: currency,
+          currency: product.currency,
         })}
       </p>
     </Link>

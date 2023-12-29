@@ -2,51 +2,16 @@ import Link from "next/link";
 import ProductContainer from "../ProductContainer/ProductContainer";
 import styles from "./ProductsList.module.css";
 import { Typography } from "@mui/material";
+import {
+  ICategory,
+  ICategoryObject,
+  IProduct,
+  IProductApi,
+  IProductObject,
+  IProductData,
+} from "@/app/lib/types/product";
 
-interface IProductsData {
-  products: Array<IProducts>;
-  categories: Array<ICategory>;
-  currentCategory: ICategory | null;
-}
-
-interface IProductsObject {
-  [key: string]: IProductsApi;
-}
-
-interface ICategoryObject {
-  [key: string]: ICategory;
-}
-
-interface IProductsApi {
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  isBestseller: boolean;
-  isNew: boolean;
-  category: string;
-  currency: string;
-}
-
-interface IProducts {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  isBestseller: boolean;
-  isNew: boolean;
-  category: string;
-  currency: string;
-}
-
-interface ICategory {
-  id: string;
-  name: string;
-  parent: number;
-}
-
-interface IProductsList {
+interface IProductList {
   categoryId: string;
   subcategoryId: string;
 }
@@ -57,9 +22,13 @@ const pages = {
   ["3" as string]: "cables",
 };
 
-const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
-  const { products, categories, currentCategory }: IProductsData =
-    await getData({ categoryId, subcategoryId });
+const ProductsList = async ({ categoryId, subcategoryId }: IProductList) => {
+  const { products, categories, currentCategory }: IProductData = await getData(
+    {
+      categoryId,
+      subcategoryId,
+    }
+  );
   return (
     <main className={styles.product_list}>
       <div className={styles.product_list_categories}>
@@ -97,20 +66,7 @@ const ProductsList = async ({ categoryId, subcategoryId }: IProductsList) => {
         )}
 
         {products.map((product) => {
-          return (
-            <ProductContainer
-              id={product.id}
-              key={product.name}
-              name={product.name}
-              price={product.price}
-              description={product.description}
-              imageUrl={product.imageUrl}
-              isBestseller={product.isBestseller}
-              isNew={product.isNew}
-              category={product.category}
-              currency={product.currency}
-            />
-          );
+          return <ProductContainer product={product} key={product.id} />;
         })}
       </div>
     </main>
@@ -132,7 +88,7 @@ const getProductData = async (
   url.searchParams.append("equalTo", `"${categoryId}"`);
 
   const res = await fetch(url.toString());
-  const data: IProductsObject = await res.json();
+  const data: IProductObject = await res.json();
   let products = [];
   for (const key in data) {
     products.push({
@@ -145,6 +101,7 @@ const getProductData = async (
       isNew: data[key].isNew,
       category: data[key].category,
       currency: data[key].currency,
+      subcategory: data[key].subcategory,
     });
   }
 
@@ -179,9 +136,9 @@ const getCurrentCategoryData = async (categoryId: string) => {
   return data;
 };
 
-const getData = async ({ categoryId, subcategoryId }: IProductsList) => {
+const getData = async ({ categoryId, subcategoryId }: IProductList) => {
   const [products, categories, currentCategory]: [
-    Array<IProducts>,
+    Array<IProduct>,
     Array<ICategory>,
     ICategory
   ] = await Promise.all([

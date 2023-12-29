@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { IProducts } from "../lib/types/product";
+import { IProduct } from "../lib/types/product";
 
-export const ProductContext = createContext<IProducts | undefined>(undefined);
+export const ProductContext = createContext<IProduct | undefined>(undefined);
 
 export const useProduct = () => {
   return useContext(ProductContext);
@@ -14,7 +14,7 @@ export function ProductContextProvider({
   value,
 }: {
   children: JSX.Element;
-  value: IProducts | undefined;
+  value: IProduct | undefined;
 }) {
   return (
     <ProductContext.Provider value={value}>{children}</ProductContext.Provider>

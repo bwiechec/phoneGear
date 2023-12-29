@@ -2,7 +2,7 @@
 
 import { useBasket } from "@/app/context/BasketContext";
 import BasketItem from "../BasketItem/BasketItem";
-import { IProducts } from "@/app/lib/types/product";
+import { IProduct } from "@/app/lib/types/product";
 import styles from "./BasketList.module.css";
 import BasketSummary from "../BasketSummary/BasketSummary";
 
@@ -11,7 +11,7 @@ export default function BasketList() {
 
   const handleQuantityChange = (
     value: number | undefined,
-    product: IProducts
+    product: IProduct
   ) => {
     let newBasket = [...basket];
     let index = newBasket.findIndex((b) => b.product.id === product.id);
@@ -21,7 +21,7 @@ export default function BasketList() {
     setBasket(newBasket);
   };
 
-  const handleItemDelete = (product: IProducts) => {
+  const handleItemDelete = (product: IProduct) => {
     let newBasket = [...basket];
     let index = newBasket.findIndex((b) => b.product.id === product.id);
 
