@@ -2,7 +2,7 @@
 
 import { useBasket } from "@/app/context/BasketContext";
 import BasketItem from "../BasketItem/BasketItem";
-import { IProduct } from "@/app/lib/types/product";
+import { IProduct } from "@/app/lib/types/types";
 import styles from "./BasketList.module.css";
 import BasketSummary from "../BasketSummary/BasketSummary";
 

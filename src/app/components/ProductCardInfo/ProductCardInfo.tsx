@@ -7,10 +7,7 @@ import { GearButton } from "../GearButton/GearButton";
 import styles from "./ProductCardInfo.module.css";
 import { useState } from "react";
 import { useBasket } from "@/app/context/BasketContext";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import GearModal from "../GearModal/GearModal";
-import { Popover, Popper, Typography } from "@mui/material";
+import { Popper, Typography } from "@mui/material";
 
 export default function ProductCardInfo() {
   const product = useProduct();
@@ -49,6 +46,8 @@ export default function ProductCardInfo() {
   const totalQuantity =
     basket.find((b) => b.product.id === product.id)?.quantity ?? 0;
 
+  const isMobile = window.innerWidth <= 1024 ? true : false;
+
   return (
     <div className={styles.product_info}>
       <h4>{product.name}</h4>
@@ -65,6 +64,7 @@ export default function ProductCardInfo() {
           max={99}
           value={quantity}
           onChange={handleQuantity}
+          readOnly={isMobile}
         />
         <GearButton onClick={handleAddToCard}>Add to card</GearButton>
         <Popper
@@ -73,14 +73,6 @@ export default function ProductCardInfo() {
           open={open}
           anchorEl={anchorEl}
           placement="bottom-end"
-          // anchorOrigin={{
-          //   vertical: "bottom",
-          //   horizontal: "right",
-          // }}
-          // transformOrigin={{
-          //   vertical: "top",
-          //   horizontal: "right",
-          // }}
         >
           <Typography textAlign={"center"} sx={{ p: 2 }}>
             Added {product.name} to card.

@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import styles from "./BasketSummary.module.css";
+import Link from "next/link";
 
 export default function BasketSummary() {
   const { basket, setBasket } = useBasket();
@@ -88,7 +89,9 @@ export default function BasketSummary() {
           })}
         </Typography>
       </div>
-      <Button className={styles.basket_summary_proceed}>Proceed</Button>
+      <Link href="/basket?phase=delivery">
+        <Button className={styles.basket_summary_proceed}>Proceed</Button>
+      </Link>
     </div>
   );
 }

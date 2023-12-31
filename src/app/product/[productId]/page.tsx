@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { IProduct, IProductApi } from "@/app/lib/types/product";
+import { IProduct, IProductApi } from "@/app/lib/types/types";
 import { ProductContextProvider } from "@/app/context/ProductContext";
 import ProductCardInfo from "@/app/components/ProductCardInfo/ProductCardInfo";
 import ProductDetails from "@/app/components/ProductDetails/ProductDetails";

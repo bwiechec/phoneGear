@@ -5,6 +5,8 @@ import styles from "./Menu.module.css";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { useBasket } from "@/app/context/BasketContext";
+import { GearBadge } from "../GearBadge/GearBadge";
 
 export default function Menu() {
   const showMenuOptions = () => {
@@ -19,6 +21,13 @@ export default function Menu() {
     if (options.classList.contains(styles.menu_options_show))
       options.classList.remove(styles.menu_options_show);
   };
+
+  const { basket } = useBasket();
+
+  let basketItemCount = 0;
+  basket.forEach((item) => {
+    basketItemCount += item.quantity;
+  });
 
   return (
     <nav className={styles.menu}>
@@ -46,7 +55,9 @@ export default function Menu() {
           <AccountBoxOutlinedIcon />
         </Link>
         <Link href="/basket" className="menu_basket_button">
-          <ShoppingBagOutlinedIcon />
+          <GearBadge badgeContent={basketItemCount}>
+            <ShoppingBagOutlinedIcon />
+          </GearBadge>
         </Link>
       </div>
     </nav>

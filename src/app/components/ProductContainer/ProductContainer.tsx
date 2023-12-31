@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./ProductContainer.module.css";
 import Link from "next/link";
-import { IProduct } from "@/app/lib/types/product";
+import { IProduct } from "@/app/lib/types/types";
 
 interface IProductContainer {
   product: IProduct;

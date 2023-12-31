@@ -1,6 +1,6 @@
 "use client";
 
-import { IBasket, IProduct } from "@/app/lib/types/product";
+import { IBasket, IProduct } from "@/app/lib/types/types";
 import { NumberInput } from "../NumberInput/NumberInput";
 import { useEffect, useState } from "react";
 import styles from "./BasketItem.module.css";

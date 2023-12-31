@@ -7,7 +7,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { IBasket } from "../lib/types/product";
+import { IBasket } from "../lib/types/types";
 
 interface IBasketContext {
   basket: IBasket[];

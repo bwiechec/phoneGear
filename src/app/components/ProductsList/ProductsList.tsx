@@ -9,7 +9,7 @@ import {
   IProductApi,
   IProductObject,
   IProductData,
-} from "@/app/lib/types/product";
+} from "@/app/lib/types/types";
 
 interface IProductList {
   categoryId: string;

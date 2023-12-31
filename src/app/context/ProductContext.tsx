@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { IProduct } from "../lib/types/product";
+import { IProduct } from "../lib/types/types";
 
 export const ProductContext = createContext<IProduct | undefined>(undefined);
 

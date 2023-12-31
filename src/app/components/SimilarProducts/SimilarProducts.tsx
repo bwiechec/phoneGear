@@ -1,4 +1,4 @@
-import { IProduct } from "@/app/lib/types/product";
+import { IProduct } from "@/app/lib/types/types";
 import styles from "./SimilarProducts.module.css";
 import { Typography } from "@mui/material";
 import ProductContainer from "../ProductContainer/ProductContainer";

@@ -47,3 +47,11 @@ export interface ICategory {
   name: string;
   parent: number;
 }
+
+export interface IOrder {
+  basketContent: IBasket[];
+  deliveryType: string;
+  deliveryValue: number;
+  paymentType: string;
+  status: string;
+}
