@@ -12,7 +12,7 @@ export default async function Page() {
         </Typography>
         {!orders.length && (
           <Typography textAlign={"center"} pt={2}>
-            You didn't place any orders yet!
+            You didn&apos;t place any orders yet!
           </Typography>
         )}
       </div>
