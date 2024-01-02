@@ -1,3 +1,4 @@
+"use client";
 import { useBasket } from "@/app/context/BasketContext";
 import { useSettings } from "@/app/context/SettingsContext";
 import Button from "@mui/material/Button";
@@ -5,10 +6,41 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import styles from "./BasketSummary.module.css";
 import Link from "next/link";
+import { IDeliveryMethod, IOrder, IPaymentMethod } from "@/app/lib/types/types";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import { GearSelect } from "../GearSelect/GearSelect";
+import { useSearchParams } from "next/navigation";
+import PaymentMethodList from "../PaymentMethodList/PaymentMethodList";
+import DeliveryMethodList from "../DeliveryMethodList/DeliveryMethodList";
 
-export default function BasketSummary() {
+interface IBasketSummary {
+  paymentMethods: IPaymentMethod[];
+  deliveryMethods: IDeliveryMethod[];
+}
+
+export default function BasketSummary({
+  paymentMethods,
+  deliveryMethods,
+}: IBasketSummary) {
+  // const [selectedPayment, setSelectedPayment] = useState(paymentMethods[0]);
+  // const [selectedDelivery, setSelectedDelivery] = useState(deliveryMethods[0]);
   const { basket, setBasket } = useBasket();
   const settings = useSettings();
+  const searchParams = useSearchParams();
+
+  const selectedPayment =
+    paymentMethods.find(
+      (method) => method.id === searchParams.get("payment")
+    ) ?? paymentMethods[0];
+
+  const selectedDelivery =
+    deliveryMethods.find(
+      (method) => method.id === searchParams.get("delivery")
+    ) ?? deliveryMethods[0];
 
   let basketSummary = 0;
   basket.forEach((item) => {
@@ -16,9 +48,40 @@ export default function BasketSummary() {
   });
 
   const deliveryPrice =
-    basketSummary >= settings.free_delivery ? 0 : settings.delivery_price;
+    basketSummary >= settings.free_delivery ? 0 : selectedDelivery.price;
 
-  const totalValue = basketSummary + deliveryPrice;
+  const totalValue =
+    (basketSummary + deliveryPrice) * (1 + selectedPayment.fee);
+
+  const proceedOrder = () => {
+    const date = new Date();
+    const order: IOrder = {
+      basketContent: basket,
+      deliveryType: selectedDelivery.id,
+      deliveryValue: deliveryPrice,
+      paymentType: selectedPayment.id,
+      paymentFee: selectedPayment.fee,
+      totalValue: totalValue,
+      status: "new",
+      orderDate: `${date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })}`,
+    };
+
+    fetch(
+      `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order.json`,
+      { method: "POST", body: JSON.stringify(order) }
+    )
+      .then((res) => {
+        if (res.status === 200) {
+          alert("success");
+          setBasket([]);
+        }
+      })
+      .catch((e) => alert("error"));
+  };
 
   return (
     <div className={styles.basket_summary}>
@@ -73,6 +136,18 @@ export default function BasketSummary() {
         </>
       )}
       <hr />
+      <PaymentMethodList
+        paymentMethods={paymentMethods}
+        selectedDelivery={selectedDelivery}
+        selectedPayment={selectedPayment}
+      />
+      <DeliveryMethodList
+        deliveryMethods={deliveryMethods}
+        selectedDelivery={selectedDelivery}
+        selectedPayment={selectedPayment}
+        basketSummary={basketSummary}
+      />
+      <hr />
       <div
         style={{
           display: "flex",
@@ -89,9 +164,9 @@ export default function BasketSummary() {
           })}
         </Typography>
       </div>
-      <Link href="/basket?phase=delivery">
-        <Button className={styles.basket_summary_proceed}>Proceed</Button>
-      </Link>
+      <Button className={styles.basket_summary_proceed} onClick={proceedOrder}>
+        Proceed
+      </Button>
     </div>
   );
 }

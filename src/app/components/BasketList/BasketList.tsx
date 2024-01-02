@@ -2,11 +2,23 @@
 
 import { useBasket } from "@/app/context/BasketContext";
 import BasketItem from "../BasketItem/BasketItem";
-import { IProduct } from "@/app/lib/types/types";
+import {
+  IDeliveryMethod,
+  IPaymentMethod,
+  IProduct,
+} from "@/app/lib/types/types";
 import styles from "./BasketList.module.css";
 import BasketSummary from "../BasketSummary/BasketSummary";
 
-export default function BasketList() {
+interface IBasketList {
+  paymentMethods: IPaymentMethod[];
+  deliveryMethods: IDeliveryMethod[];
+}
+
+export default function BasketList({
+  paymentMethods,
+  deliveryMethods,
+}: IBasketList) {
   const { basket, setBasket } = useBasket();
 
   const handleQuantityChange = (
@@ -48,7 +60,10 @@ export default function BasketList() {
               );
             })}
           </div>
-          <BasketSummary />
+          <BasketSummary
+            paymentMethods={paymentMethods}
+            deliveryMethods={deliveryMethods}
+          />
         </>
       ) : (
         <div>No products in basket</div>

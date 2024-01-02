@@ -15,6 +15,13 @@ export default async function Page() {
             You didn&apos;t place any orders yet!
           </Typography>
         )}
+        {orders.map((order) => {
+          return (
+            <div>
+              {order.totalValue} {order.orderDate}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -22,7 +29,8 @@ export default async function Page() {
 
 const getOrderData = async () => {
   const res = await fetch(
-    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/orders.json`
+    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order.json`,
+    { cache: "no-store" }
   );
   const data: IOrder[] = await res.json();
   let products = [];
@@ -34,8 +42,12 @@ const getOrderData = async () => {
       deliveryValue: data[key].deliveryValue,
       paymentType: data[key].paymentType,
       status: data[key].status,
+      totalValue: data[key].totalValue,
+      orderDate: data[key].orderDate,
     });
   }
 
   return products;
 };
+
+export const dynamic = "force-dynamic";

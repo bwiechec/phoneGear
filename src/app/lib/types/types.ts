@@ -53,5 +53,30 @@ export interface IOrder {
   deliveryType: string;
   deliveryValue: number;
   paymentType: string;
+  paymentFee: number;
+  totalValue: number;
   status: string;
+  orderDate: string;
+}
+
+export interface IPaymentMethodApi {
+  name: string;
+  fee: number;
+}
+
+export interface IPaymentMethod {
+  id: string;
+  name: string;
+  fee: number;
+}
+
+export interface IDeliveryMethodApi {
+  name: string;
+  price: number;
+}
+
+export interface IDeliveryMethod {
+  id: string;
+  name: string;
+  price: number;
 }
