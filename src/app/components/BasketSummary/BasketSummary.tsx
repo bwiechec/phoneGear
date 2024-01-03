@@ -17,6 +17,7 @@ import { useSearchParams } from "next/navigation";
 import PaymentMethodList from "../PaymentMethodList/PaymentMethodList";
 import DeliveryMethodList from "../DeliveryMethodList/DeliveryMethodList";
 import { useRouter } from "next/navigation";
+import { Alert, AlertColor, Snackbar } from "@mui/material";
 
 interface IBasketSummary {
   paymentMethods: IPaymentMethod[];
@@ -27,8 +28,11 @@ export default function BasketSummary({
   paymentMethods,
   deliveryMethods,
 }: IBasketSummary) {
-  // const [selectedPayment, setSelectedPayment] = useState(paymentMethods[0]);
-  // const [selectedDelivery, setSelectedDelivery] = useState(deliveryMethods[0]);
+  const [snackbarProps, setSnackbarProps] = useState<{
+    snackbarOpen: boolean;
+    proceedMessage: string;
+    alertSeverity: AlertColor;
+  }>({ snackbarOpen: false, proceedMessage: "", alertSeverity: "success" });
   const { basket, setBasket } = useBasket();
   const settings = useSettings();
   const searchParams = useSearchParams();
@@ -78,12 +82,30 @@ export default function BasketSummary({
     )
       .then((res) => {
         if (res.status === 200) {
-          alert("success");
           router.refresh();
-          setBasket([]);
+          setSnackbarProps({
+            snackbarOpen: true,
+            proceedMessage: "Order successfully placed",
+            alertSeverity: "success",
+          });
+          setTimeout(() => {
+            setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
+            setBasket([]);
+          }, 1000);
+        } else {
+          throw new Error("Error!");
         }
       })
-      .catch((e) => alert("error"));
+      .catch((e) => {
+        setSnackbarProps({
+          snackbarOpen: true,
+          proceedMessage: "Error",
+          alertSeverity: "error",
+        });
+        setTimeout(() => {
+          setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
+        }, 1000);
+      });
   };
 
   return (
@@ -170,6 +192,14 @@ export default function BasketSummary({
       <Button className={styles.basket_summary_proceed} onClick={proceedOrder}>
         Proceed
       </Button>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackbarProps.snackbarOpen}
+      >
+        <Alert severity={snackbarProps.alertSeverity}>
+          {snackbarProps.proceedMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
