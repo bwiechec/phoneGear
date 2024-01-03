@@ -16,6 +16,7 @@ import { GearSelect } from "../GearSelect/GearSelect";
 import { useSearchParams } from "next/navigation";
 import PaymentMethodList from "../PaymentMethodList/PaymentMethodList";
 import DeliveryMethodList from "../DeliveryMethodList/DeliveryMethodList";
+import { useRouter } from "next/navigation";
 
 interface IBasketSummary {
   paymentMethods: IPaymentMethod[];
@@ -31,6 +32,7 @@ export default function BasketSummary({
   const { basket, setBasket } = useBasket();
   const settings = useSettings();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const selectedPayment =
     paymentMethods.find(
@@ -77,6 +79,7 @@ export default function BasketSummary({
       .then((res) => {
         if (res.status === 200) {
           alert("success");
+          router.refresh();
           setBasket([]);
         }
       })
