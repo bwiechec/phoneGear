@@ -41,7 +41,7 @@ export default function DeliveryMethodList({
       >
         {deliveryMethods.map((method) => {
           return (
-            <MenuItem value={method.id}>
+            <MenuItem value={method.id} key={method.id}>
               <Link
                 href={`?${new URLSearchParams({
                   payment: selectedPayment.id,

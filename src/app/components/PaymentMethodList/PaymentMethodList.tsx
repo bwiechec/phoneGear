@@ -33,7 +33,7 @@ export default function PaymentMethodList({
       >
         {paymentMethods.map((method) => {
           return (
-            <MenuItem value={method.id}>
+            <MenuItem value={method.id} key={method.id}>
               <Link
                 href={`?${new URLSearchParams({
                   payment: method.id,

@@ -17,7 +17,7 @@ export default async function Page() {
         )}
         {orders.map((order) => {
           return (
-            <div>
+            <div key={order.id}>
               {order.totalValue} {order.orderDate}
             </div>
           );
