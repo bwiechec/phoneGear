@@ -46,7 +46,12 @@ export default function ProductCardInfo() {
   const totalQuantity =
     basket.find((b) => b.product.id === product.id)?.quantity ?? 0;
 
-  const isMobile = window.innerWidth <= 1024 ? true : false;
+  const isMobile =
+    typeof window !== "undefined"
+      ? window.innerWidth <= 1024
+        ? true
+        : false
+      : false;
 
   return (
     <div className={styles.product_info}>
