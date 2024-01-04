@@ -57,7 +57,11 @@ export default function BasketSummary({
     basketSummary >= settings.free_delivery ? 0 : selectedDelivery.price;
 
   const totalValue =
-    (basketSummary + deliveryPrice) * (1 + selectedPayment.fee);
+    Math.round(
+      ((basketSummary + deliveryPrice) * (1 + selectedPayment.fee) +
+        Number.EPSILON) *
+        100
+    ) / 100;
 
   const proceedOrder = () => {
     const date = new Date();
