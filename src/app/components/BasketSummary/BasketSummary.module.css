@@ -13,7 +13,7 @@
 
 .basket_summary_proceed {
   background-color: var(--accent) !important;
-  color: var(--text) !important;
+  color: white !important;
   width: 100%;
 }
 

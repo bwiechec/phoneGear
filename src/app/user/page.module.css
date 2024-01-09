@@ -1,11 +1,26 @@
 .user_container {
   padding: 24px 24px 4rem 24px;
+  max-width: 960px;
+  margin-inline: auto;
 }
 
-.user {
+.user_item {
   -webkit-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
   -moz-box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
   box-shadow: 0px 0px 24px -13px rgba(66, 68, 90, 1);
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 4rem;
+  margin-bottom: 2rem;
+}
+
+.user_item_order_product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .user_item_order_product {
+    flex-direction: column;
+  }
 }

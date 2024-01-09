@@ -23,12 +23,11 @@
   --primary: #58d0a8;
   --secondary: #fbdda2;
   --accent: #c80949; */
-  --text: #00bd75;
-  --background: #ffffff;
-  --primary: #bcf6e2;
+  --text: #abaa8e;
+  --background: #fff;
+  --primary: #efeee1;
   --secondary: #dde5e2;
-  --accent: #045f4b;
-
+  --accent: #5a5950;
   --shadow: rgba(0, 0, 0, 0.05);
 }
 

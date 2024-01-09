@@ -37,20 +37,20 @@ export const NumberInput = forwardRef(function CustomNumberInput(
 });
 
 const colors = {
-  text: "#00bd75",
-  background: "#ffffff",
-  primary: "#bcf6e2",
-  secondary: "#dde5e2",
-  accent: "#045f4b",
+  text: "var(--text)",
+  background: "var(--accent)",
+  primary: "var(--accent)",
+  secondary: "var(--accent)",
+  accent: "var(--accent)",
 
-  shadow: "rgba(0, 0, 0, 0.05)",
+  shadow: "var(--shadow)",
 };
 
 const StyledInputRoot = styled("div")(
   ({ theme }) => `
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  color: ${colors.accent};
+  color: var(--accent);
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -64,10 +64,10 @@ const StyledInput = styled("input")(
   font-family: inherit;
   font-weight: 400;
   line-height: 1.375;
-  color: ${colors.text};
-  background: ${colors.primary};
-  border: 1px solid ${colors.secondary};
-  box-shadow: 0px 2px 4px ${"rgba(0,0,0, 0.5)"};
+  color: var(--text);
+  background: var(--primary);
+  border: 1px solid var(--secondary);
+  box-shadow: 0px 2px 4px var(--shadow)"};
   border-radius: 8px;
   margin: 0 8px;
   padding: 10px 12px;
@@ -77,12 +77,12 @@ const StyledInput = styled("input")(
   text-align: center;
 
   &:hover {
-    border-color: ${colors.accent};
+    border-color: var(--accent);
   }
 
   &:focus {
-    border-color: ${colors.accent};
-    box-shadow: 0 0 0 3px ${colors.secondary};
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--secondary);
   }
 
   &:focus-visible {
@@ -99,9 +99,9 @@ const StyledButton = styled("button")(
   line-height: 1.5;
   border: 1px solid;
   border-radius: 999px;
-  border-color: ${colors.secondary};
-  background: ${colors.primary};
-  color: ${colors.text};
+  border-color: var(--secondary);
+  background: var(--primary);
+  color: var(--text);
   width: 32px;
   height: 32px;
   display: flex;
@@ -114,9 +114,9 @@ const StyledButton = styled("button")(
 
   &:hover {
     cursor: pointer;
-    background: ${colors.secondary};
-    border-color: ${colors.secondary};
-    color: ${colors.text};
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--text);
   }
 
   &:focus-visible {

@@ -12,16 +12,16 @@ const colors = {
 };
 
 export const GearButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  backgroundColor: colors.accent,
+  backgroundColor: "var(--accent)",
   color: "white",
   padding: "1rem",
   width: "100%",
   borderRadius: "1rem",
   boxSizing: "border-box",
-  border: `1px solid ${colors.accent}`,
+  border: `1px solid var(--accent)`,
   ":hover": {
-    backgroundColor: colors.secondary,
-    border: `1px solid ${colors.accent}`,
-    color: colors.text,
+    backgroundColor: "var(--secondary)",
+    border: `1px solid var(--accent)`,
+    color: "var(--text)",
   },
 }));
