@@ -62,6 +62,7 @@
   }
 
   .product_list_categories_show {
+    border-radius: 0 1rem;
     display: block !important;
     width: 70%;
     position: fixed;
