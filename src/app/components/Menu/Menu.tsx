@@ -7,6 +7,7 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useBasket } from "@/app/context/BasketContext";
 import { GearBadge } from "../GearBadge/GearBadge";
+import { Typography } from "@mui/material";
 
 export default function Menu() {
   const showMenuOptions = () => {
@@ -34,7 +35,12 @@ export default function Menu() {
       <div className={styles.menu_options_open} onClick={showMenuOptions}>
         <MenuOutlinedIcon />
       </div>
-      <Link href="/">PhoneGear</Link>
+      <Link href="/">
+        {" "}
+        <Typography fontWeight={600} variant="h5" fontFamily="inherit">
+          PhoneGear
+        </Typography>
+      </Link>
       <div className={styles.menu_options}>
         <Link onClick={removeMenuOptions} href="/cases">
           Phone cases

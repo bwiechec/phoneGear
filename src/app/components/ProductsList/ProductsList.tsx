@@ -10,6 +10,8 @@ import {
   IProductObject,
   IProductData,
 } from "@/app/lib/types/types";
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
+import ProductListCategories from "../ProductListCategories/ProductListCategories";
 
 interface IProductList {
   categoryId: string;
@@ -29,35 +31,15 @@ const ProductsList = async ({ categoryId, subcategoryId }: IProductList) => {
       subcategoryId,
     }
   );
+
   return (
     <main className={styles.product_list}>
-      <div className={styles.product_list_categories}>
-        <h4>Categories</h4>
-        <Link
-          href={pages[categoryId]}
-          className={!subcategoryId ? styles.current_subcategory : ""}
-        >
-          {currentCategory && currentCategory.name}
-        </Link>
-        <ul className={styles.product_list_categories_list}>
-          {categories.map((category) => {
-            return (
-              <li
-                key={category.id}
-                className={
-                  subcategoryId && category.id === subcategoryId
-                    ? styles.current_subcategory
-                    : ""
-                }
-              >
-                <Link href={"/cases?subcategoryId=" + category.id}>
-                  {category.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <ProductListCategories
+        categoryId={pages[categoryId]}
+        subcategoryId={subcategoryId}
+        currentCategory={currentCategory}
+        categories={categories}
+      />
       <div className={styles.product_list_products}>
         {!products.length && (
           <Typography textAlign={"center"} width={"100%"}>
