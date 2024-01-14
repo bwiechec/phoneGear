@@ -14,27 +14,27 @@ export default function NewProductForm({ categories }: INewProductForm) {
   const onSubmit: SubmitHandler<IProductApi> = (data) => console.log(data);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.new_product_form}>
-      <FormControl>
+      <FormControl key={"name"}>
         <label>Product Name</label>
         <input {...register("name", { required: true })} />
       </FormControl>
 
-      <FormControl>
+      <FormControl key={"price"}>
         <label>Price</label>
         <input {...register("price", { required: true })} />
       </FormControl>
 
-      <FormControl>
+      <FormControl key={"description"}>
         <label>Description</label>
         <input {...register("description", { required: true })} />
       </FormControl>
 
-      <FormControl>
+      <FormControl key={"imageUrl"}>
         <label>Image url</label>
         <input {...register("imageUrl", { required: true })} />
       </FormControl>
 
-      <FormControl>
+      <FormControl key={"category"}>
         <label>Category</label>
         <select {...register("category", { required: true })}>
           {categories.map((category) => {
@@ -43,14 +43,14 @@ export default function NewProductForm({ categories }: INewProductForm) {
         </select>
       </FormControl>
 
-      <FormControl>
+      <FormControl key={"currency"}>
         <label>Currency</label>
         <select {...register("currency", { required: true })}>
           <option>USD</option>
         </select>
       </FormControl>
 
-      <FormControl>
+      <FormControl key={"subcategory"}>
         <label>Subcategory</label>
         <input {...register("subcategory", { required: true })} />
       </FormControl>

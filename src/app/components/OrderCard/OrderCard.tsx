@@ -37,8 +37,8 @@ export default function OrderCard({ order, onList }: IOrderCard) {
           <Typography fontWeight={600}>{order.orderDate}</Typography>
         </div>
       )}
-      {order.basketContent.map((item) => {
-        return <OrderItem item={item} />;
+      {order.basketContent.map((item, key) => {
+        return <OrderItem item={item} key={item.product.id} />;
       })}
       {order.is_sliced && (
         <>

@@ -13,7 +13,7 @@ export default function OrdersList() {
   return (
     <>
       {orders.map((order) => {
-        return <OrderCard order={order} onList={true} />;
+        return <OrderCard order={order} onList={true} key={order.id} />;
       })}
     </>
   );
