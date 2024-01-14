@@ -1,11 +1,16 @@
 import { Typography } from "@mui/material";
 import styles from "./page.module.css";
-import { IOrder } from "../lib/types/types";
+import { IOrderApi } from "../lib/types/types";
 import Image from "next/image";
-import { useSettings } from "../context/SettingsContext";
+import { GearButton } from "../components/GearButton/GearButton";
+import Link from "next/link";
+import { OrdersContextProvider } from "../context/OrderContext";
+import OrdersList from "../components/OrdersList/OrdersList";
+
+const PRODUCT_SHOW_COUNT = 3;
 
 export default async function Page() {
-  const orders = await getOrderData();
+  const orders = await getOrdersData();
   return (
     <div className={styles.user_container}>
       <Typography variant="h5" fontWeight={600} textAlign={"left"} p={2}>
@@ -19,109 +24,26 @@ export default async function Page() {
         </div>
       )}
 
-      {orders.map((order) => {
-        return (
-          <div className={styles.user_item} key={order.id}>
-            {order.orderDate && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  padding: "0.25rem",
-                  gap: "2rem",
-                }}
-              >
-                <Typography fontWeight={600}>order date</Typography>{" "}
-                <Typography fontWeight={600}>{order.orderDate}</Typography>
-              </div>
-            )}
-            {order.basketContent.map((item) => {
-              return (
-                <>
-                  <div className={styles.user_item_order_product}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Image
-                        loading="lazy"
-                        src={item.product.imageUrl}
-                        alt={item.product.name}
-                        width={75}
-                        height={75}
-                        style={{ height: "auto" }}
-                      />
-                      <Typography>{item.product.name}</Typography>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5rem",
-                      }}
-                    >
-                      <Typography>
-                        {item.quantity} x{" "}
-                        {item.product.price.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "USD",
-                        })}
-                      </Typography>
-                      <Typography fontWeight={600}>
-                        {(item.quantity * item.product.price).toLocaleString(
-                          "en-US",
-                          {
-                            style: "currency",
-                            currency: "USD",
-                          }
-                        )}
-                      </Typography>
-                    </div>
-                  </div>
-                  <hr
-                    style={{
-                      margin: "0.5rem auto",
-                    }}
-                  />
-                </>
-              );
-            })}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "0.5rem 2rem",
-              }}
-            >
-              <Typography fontWeight={600}>Total value</Typography>
-              <Typography variant="h6" fontWeight={600}>
-                {order.totalValue.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </Typography>
-            </div>
-          </div>
-        );
-      })}
+      <OrdersContextProvider value={orders}>
+        <OrdersList />
+      </OrdersContextProvider>
     </div>
   );
 }
 
-const getOrderData = async () => {
+const getOrdersData = async () => {
   const res = await fetch(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order.json`,
     { cache: "no-store" }
   );
-  const data: IOrder[] = await res.json();
+  const data: IOrderApi[] = await res.json();
   let products = [];
   for (const key in data) {
     products.push({
       id: key,
-      basketContent: data[key].basketContent,
+      basketContent: data[key].basketContent.slice(0, PRODUCT_SHOW_COUNT),
+      is_sliced: data[key].basketContent.length > PRODUCT_SHOW_COUNT,
+      sliced_count: data[key].basketContent.length - PRODUCT_SHOW_COUNT,
       deliveryType: data[key].deliveryType,
       deliveryValue: data[key].deliveryValue,
       paymentType: data[key].paymentType,

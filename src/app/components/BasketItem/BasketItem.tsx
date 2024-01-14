@@ -10,8 +10,8 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 interface IBasketItem {
   basketItem: IBasket;
-  handleQuantityChange: (value: number | undefined, product: IProduct) => void;
-  handleItemDelete: (product: IProduct) => void;
+  handleQuantityChange?: (value: number | undefined, product: IProduct) => void;
+  handleItemDelete?: (product: IProduct) => void;
 }
 
 export default function BasketItem({
@@ -19,6 +19,7 @@ export default function BasketItem({
   handleQuantityChange,
   handleItemDelete,
 }: IBasketItem) {
+  console.log(basketItem.quantity);
   const [quantity, setQuantity] = useState(basketItem.quantity);
 
   useEffect(() => {
@@ -26,7 +27,8 @@ export default function BasketItem({
   }, [basketItem.quantity]);
 
   const handleQuantity = (_event: any, value: number | undefined) => {
-    handleQuantityChange(value, basketItem.product);
+    handleQuantityChange !== undefined &&
+      handleQuantityChange(value, basketItem.product);
   };
 
   return (
@@ -41,14 +43,18 @@ export default function BasketItem({
       />
       <h5 className={styles.basket_item_name}>{basketItem.product.name}</h5>
       <div className={styles.basket_item_quantity}>
-        <NumberInput
-          aria-label="Quantity Input"
-          min={1}
-          max={99}
-          value={quantity}
-          onChange={handleQuantity}
-          style={{ height: "fit-content" }}
-        />
+        {handleQuantityChange !== undefined ? (
+          <NumberInput
+            aria-label="Quantity Input"
+            min={1}
+            max={99}
+            value={quantity}
+            onChange={handleQuantity}
+            style={{ height: "fit-content" }}
+          />
+        ) : (
+          <h5>{quantity}x</h5>
+        )}
         <h5>
           {(quantity * basketItem.product.price).toLocaleString("en-US", {
             style: "currency",
@@ -56,12 +62,14 @@ export default function BasketItem({
           })}{" "}
         </h5>
       </div>
-      <Button
-        className={styles.basket_item_delete}
-        onClick={() => handleItemDelete(basketItem.product)}
-      >
-        <DeleteOutlinedIcon />
-      </Button>
+      {handleItemDelete !== undefined && (
+        <Button
+          className={styles.basket_item_delete}
+          onClick={() => handleItemDelete(basketItem.product)}
+        >
+          <DeleteOutlinedIcon />
+        </Button>
+      )}
     </div>
   );
 }

@@ -48,7 +48,19 @@ export interface ICategory {
   parent: number;
 }
 
+export interface IOrderApi {
+  basketContent: IBasket[];
+  deliveryType: string;
+  deliveryValue: number;
+  paymentType: string;
+  paymentFee: number;
+  totalValue: number;
+  status: string;
+  orderDate: string;
+}
+
 export interface IOrder {
+  id: string;
   basketContent: IBasket[];
   deliveryType: string;
   deliveryValue: number;

@@ -1,0 +1,14 @@
+.order_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .order_item {
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}

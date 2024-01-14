@@ -5,14 +5,12 @@ import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import styles from "./BasketSummary.module.css";
-import Link from "next/link";
-import { IDeliveryMethod, IOrder, IPaymentMethod } from "@/app/lib/types/types";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import {
+  IDeliveryMethod,
+  IOrderApi,
+  IPaymentMethod,
+} from "@/app/lib/types/types";
 import { useState } from "react";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import { GearSelect } from "../GearSelect/GearSelect";
 import { useSearchParams } from "next/navigation";
 import PaymentMethodList from "../PaymentMethodList/PaymentMethodList";
 import DeliveryMethodList from "../DeliveryMethodList/DeliveryMethodList";
@@ -65,7 +63,7 @@ export default function BasketSummary({
 
   const proceedOrder = () => {
     const date = new Date();
-    const order: IOrder = {
+    const order: IOrderApi = {
       basketContent: basket,
       deliveryType: selectedDelivery.id,
       deliveryValue: deliveryPrice,
@@ -86,19 +84,23 @@ export default function BasketSummary({
     )
       .then((res) => {
         if (res.status === 200) {
-          router.refresh();
-          setSnackbarProps({
-            snackbarOpen: true,
-            proceedMessage: "Order successfully placed",
-            alertSeverity: "success",
-          });
-          setTimeout(() => {
-            setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
-            setBasket([]);
-          }, 1000);
+          return res.json();
         } else {
           throw new Error("Error!");
         }
+      })
+      .then((resJson) => {
+        router.refresh();
+        setSnackbarProps({
+          snackbarOpen: true,
+          proceedMessage: "Order successfully placed",
+          alertSeverity: "success",
+        });
+        setTimeout(() => {
+          setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
+          setBasket([]);
+          if (resJson.name) window.location.replace(`/order/${resJson.name}`);
+        }, 1000);
       })
       .catch((e) => {
         setSnackbarProps({

@@ -1,0 +1,17 @@
+.order {
+  padding: 2rem 2rem 4rem 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .order {
+    flex-direction: column;
+  }
+}
+
+.order div:first-child hr:last-child {
+  display: none;
+}

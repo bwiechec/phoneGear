@@ -36,16 +36,6 @@ export const NumberInput = forwardRef(function CustomNumberInput(
   );
 });
 
-const colors = {
-  text: "var(--text)",
-  background: "var(--accent)",
-  primary: "var(--accent)",
-  secondary: "var(--accent)",
-  accent: "var(--accent)",
-
-  shadow: "var(--shadow)",
-};
-
 const StyledInputRoot = styled("div")(
   ({ theme }) => `
   font-family: 'IBM Plex Sans', sans-serif;
