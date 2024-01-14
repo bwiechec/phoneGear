@@ -38,7 +38,11 @@ export default function NewProductForm({ categories }: INewProductForm) {
         <label>Category</label>
         <select {...register("category", { required: true })}>
           {categories.map((category) => {
-            return <option value={category.id}>{category.name}</option>;
+            return (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            );
           })}
         </select>
       </FormControl>
