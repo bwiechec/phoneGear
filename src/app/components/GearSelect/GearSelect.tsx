@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import Select from "@mui/material/Select";
 
 interface IGearSelect {
-  children: JSX.Element[];
+  children: JSX.Element[] | JSX.Element;
   labelId: string;
   id: string;
   value: string;

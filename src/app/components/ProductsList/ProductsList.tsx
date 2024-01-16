@@ -69,7 +69,7 @@ const getProductData = async (
   url.searchParams.append("orderBy", '"category"');
   url.searchParams.append("equalTo", `"${categoryId}"`);
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), { cache: "no-store" });
   const data: IProductObject = await res.json();
   let products = [];
   for (const key in data) {
@@ -134,3 +134,5 @@ const getData = async ({ categoryId, subcategoryId }: IProductList) => {
 };
 
 export default ProductsList;
+
+export const dynamic = "force-dynamic";

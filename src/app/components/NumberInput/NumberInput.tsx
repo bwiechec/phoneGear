@@ -57,7 +57,7 @@ const StyledInput = styled("input")(
   color: var(--text);
   background: var(--primary);
   border: 1px solid var(--secondary);
-  box-shadow: 0px 2px 4px var(--shadow)"};
+  box-shadow: 0px 2px 4px var(--shadow);
   border-radius: 8px;
   margin: 0 8px;
   padding: 10px 12px;
