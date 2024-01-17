@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { ICategory, IProductApi } from "@/app/lib/types/types";
 import {
   Alert,
@@ -15,6 +16,7 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 import { GearSelect } from "../GearSelect/GearSelect";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface INewProductForm {
   categories: ICategory[];
@@ -34,18 +36,12 @@ export default function NewProductForm({ categories }: INewProductForm) {
 
   const onSubmit: SubmitHandler<IProductApi> = (data) => {
     console.log(data);
-    fetch(
-      `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
-      { method: "POST", body: JSON.stringify(data) }
-    )
+    axios
+      .get(
+        `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
+        { method: "POST", params: JSON.stringify(data) }
+      )
       .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        } else {
-          throw new Error("Error!");
-        }
-      })
-      .then((resJson) => {
         router.refresh();
         setSnackbarProps({
           snackbarOpen: true,
@@ -58,39 +54,49 @@ export default function NewProductForm({ categories }: INewProductForm) {
         }, 1000);
       })
       .catch((e) => {
-        setSnackbarProps({
-          snackbarOpen: true,
-          proceedMessage: "Error",
-          alertSeverity: "error",
-        });
-        setTimeout(() => {
-          setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
-        }, 1000);
+        handleApiError();
       });
   };
 
   watch("category");
 
+  const handleApiError = () => {
+    setSnackbarProps({
+      snackbarOpen: true,
+      proceedMessage: "Error",
+      alertSeverity: "error",
+    });
+
+    setTimeout(() => {
+      setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
+    }, 1000);
+  };
+
   const getSubcateogyData = () => {
-    fetch(
+    axios<ICategory[]>(
       `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/categories.json?orderBy="parent"&equalTo="${categoryId}"`
     )
-      .then((res) => res.json())
-      .then((resJson) => {
+      .then((res) => {
         let categories = [];
-        for (const key in resJson) {
-          categories.push({
-            id: key,
-            name: resJson[key].name,
-            parent: resJson[key].parent,
-          });
+        if (res.data) {
+          for (const key in res.data) {
+            categories.push({
+              id: key,
+              name: res.data[key].name,
+              parent: res.data[key].parent,
+            });
+          }
         }
 
         categories.sort((a, b) => (a.name > b.name ? 1 : -1));
 
         setSubcategories(categories);
+        console.log(res);
+      })
+      .catch((e) => {
+        handleApiError();
+        setSubcategories([]);
       });
-    setSubcategories([]);
   };
 
   useEffect(() => {
@@ -99,32 +105,36 @@ export default function NewProductForm({ categories }: INewProductForm) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.new_product_form}>
-      <FormControl key={"name"}>
-        <label>Product Name</label>
-        <input {...register("name", { required: true })} />
+      <FormControl key={"name"} aria-labelledby="name">
+        <label htmlFor="name">Product Name</label>
+        <input id="name" {...register("name", { required: true })} />
       </FormControl>
 
       <FormControl key={"price"}>
-        <label>Price</label>
+        <label htmlFor="price">Price</label>
         <input
           type="number"
+          id="price"
           step={0.01}
           {...register("price", { required: true, valueAsNumber: true })}
         />
       </FormControl>
 
       <FormControl key={"description"}>
-        <label>Description</label>
-        <textarea {...register("description", { required: true })} />
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          {...register("description", { required: true })}
+        />
       </FormControl>
 
       <FormControl key={"imageUrl"}>
-        <label>Image url</label>
-        <input {...register("imageUrl", { required: true })} />
+        <label htmlFor="imageUrl">Image url</label>
+        <input id="imageUrl" {...register("imageUrl", { required: true })} />
       </FormControl>
 
       <FormControl key={"category"}>
-        <label>Category</label>
+        <label htmlFor="category">Category</label>
         <Controller
           name={"category"}
           rules={{
@@ -133,6 +143,7 @@ export default function NewProductForm({ categories }: INewProductForm) {
           defaultValue={categories[0].id}
           render={({ field }) => (
             <Select
+              id="category"
               sx={{
                 color: "var(--accent)",
                 fontWeight: "600",
@@ -160,7 +171,7 @@ export default function NewProductForm({ categories }: INewProductForm) {
       </FormControl>
 
       <FormControl key={"currency"}>
-        <label>Currency</label>
+        <label htmlFor="currency">Currency</label>
         <Controller
           name={"currency"}
           rules={{
@@ -169,6 +180,7 @@ export default function NewProductForm({ categories }: INewProductForm) {
           defaultValue="USD"
           render={({ field }) => (
             <Select
+              id="currency"
               sx={{
                 color: "var(--accent)",
                 fontWeight: "600",
@@ -190,7 +202,7 @@ export default function NewProductForm({ categories }: INewProductForm) {
       </FormControl>
 
       <FormControl key={"subcategory"}>
-        <label>Subcategory</label>
+        <label htmlFor="subcategory">Subcategory</label>
 
         <Controller
           name={"subcategory"}
@@ -200,6 +212,7 @@ export default function NewProductForm({ categories }: INewProductForm) {
           defaultValue={subcategories[0]?.id ?? ""}
           render={({ field }) => (
             <Select
+              id="subcategory"
               sx={{
                 color: "var(--accent)",
                 fontWeight: "600",
