@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import NewProductForm from "../components/NewProductForm/NewProductForm";
 import { ICategoryObject } from "../lib/types/types";
 import styles from "./page.module.css";
+import axios from "axios";
 
 export default async function Page() {
   const mainCategories = await getMainCategoryData();
@@ -16,10 +17,10 @@ export default async function Page() {
 }
 
 const getMainCategoryData = async () => {
-  const res = await fetch(
+  const res = await axios<ICategoryObject>(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/categories.json?orderBy="parent"&equalTo="0"`
   );
-  const data: ICategoryObject = await res.json();
+  const data: ICategoryObject = res.data;
   let categories = [];
   for (const key in data) {
     categories.push({

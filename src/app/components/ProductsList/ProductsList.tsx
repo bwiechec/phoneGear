@@ -12,6 +12,7 @@ import {
 } from "@/app/lib/types/types";
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 import ProductListCategories from "../ProductListCategories/ProductListCategories";
+import axios from "axios";
 
 interface IProductList {
   categoryId: string;
@@ -69,8 +70,8 @@ const getProductData = async (
   url.searchParams.append("orderBy", '"category"');
   url.searchParams.append("equalTo", `"${categoryId}"`);
 
-  const res = await fetch(url.toString(), { cache: "no-store" });
-  const data: IProductObject = await res.json();
+  const res = await axios<IProductObject>(url.toString());
+  const data: IProductObject = res.data;
   let products = [];
   for (const key in data) {
     products.push({
@@ -91,10 +92,10 @@ const getProductData = async (
 };
 
 const getCategoryData = async (categoryId: string) => {
-  const res = await fetch(
+  const res = await axios<ICategoryObject>(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/categories.json?orderBy="parent"&equalTo="${categoryId}"`
   );
-  const data: ICategoryObject = await res.json();
+  const data: ICategoryObject = res.data;
   let products = [];
   for (const key in data) {
     products.push({
@@ -110,10 +111,10 @@ const getCategoryData = async (categoryId: string) => {
 };
 
 const getCurrentCategoryData = async (categoryId: string) => {
-  const res = await fetch(
+  const res = await axios<ICategory>(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/categories/${categoryId}.json`
   );
-  const data: ICategory = await res.json();
+  const data: ICategory = res.data;
 
   return data;
 };

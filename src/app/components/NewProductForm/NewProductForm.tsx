@@ -39,7 +39,7 @@ export default function NewProductForm({ categories }: INewProductForm) {
     axios
       .get(
         `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
-        { method: "POST", params: JSON.stringify(data) }
+        { method: "POST", data: JSON.stringify(data) }
       )
       .then((res) => {
         router.refresh();

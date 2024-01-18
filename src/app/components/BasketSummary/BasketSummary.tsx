@@ -16,6 +16,7 @@ import PaymentMethodList from "../PaymentMethodList/PaymentMethodList";
 import DeliveryMethodList from "../DeliveryMethodList/DeliveryMethodList";
 import { useRouter } from "next/navigation";
 import { Alert, AlertColor, Snackbar } from "@mui/material";
+import axios from "axios";
 
 interface IBasketSummary {
   paymentMethods: IPaymentMethod[];
@@ -78,18 +79,12 @@ export default function BasketSummary({
       })}`,
     };
 
-    fetch(
+    axios(
       `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order.json`,
-      { method: "POST", body: JSON.stringify(order) }
+      { method: "POST", data: JSON.stringify(order) }
     )
       .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        } else {
-          throw new Error("Error!");
-        }
-      })
-      .then((resJson) => {
+        console.log(res);
         router.refresh();
         setSnackbarProps({
           snackbarOpen: true,
@@ -99,10 +94,11 @@ export default function BasketSummary({
         setTimeout(() => {
           setSnackbarProps({ ...snackbarProps, snackbarOpen: false });
           setBasket([]);
-          if (resJson.name) window.location.replace(`/order/${resJson.name}`);
+          if (res.data.name) window.location.replace(`/order/${res.data.name}`);
         }, 1000);
       })
       .catch((e) => {
+        console.log(e);
         setSnackbarProps({
           snackbarOpen: true,
           proceedMessage: "Error",

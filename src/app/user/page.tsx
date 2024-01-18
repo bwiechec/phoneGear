@@ -6,6 +6,7 @@ import { GearButton } from "../components/GearButton/GearButton";
 import Link from "next/link";
 import { OrdersContextProvider } from "../context/OrderContext";
 import OrdersList from "../components/OrdersList/OrdersList";
+import axios from "axios";
 
 const PRODUCT_SHOW_COUNT = 3;
 
@@ -32,11 +33,10 @@ export default async function Page() {
 }
 
 const getOrdersData = async () => {
-  const res = await fetch(
-    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order.json`,
-    { cache: "no-store" }
+  const res = await axios<IOrderApi[]>(
+    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order.json`
   );
-  const data: IOrderApi[] = await res.json();
+  const data: IOrderApi[] = res.data;
   let products = [];
   for (const key in data) {
     products.push({

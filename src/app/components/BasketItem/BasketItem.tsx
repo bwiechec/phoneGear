@@ -27,8 +27,7 @@ export default function BasketItem({
   }, [basketItem.quantity]);
 
   const handleQuantity = (_event: any, value: number | undefined) => {
-    handleQuantityChange !== undefined &&
-      handleQuantityChange(value, basketItem.product);
+    handleQuantityChange && handleQuantityChange(value, basketItem.product);
   };
 
   return (
@@ -43,7 +42,7 @@ export default function BasketItem({
       />
       <h5 className={styles.basket_item_name}>{basketItem.product.name}</h5>
       <div className={styles.basket_item_quantity}>
-        {handleQuantityChange !== undefined ? (
+        {handleQuantityChange ? (
           <NumberInput
             aria-label="Quantity Input"
             min={1}
@@ -62,10 +61,12 @@ export default function BasketItem({
           })}{" "}
         </h5>
       </div>
-      {handleItemDelete !== undefined && (
+      {handleItemDelete && (
         <Button
           className={styles.basket_item_delete}
           onClick={() => handleItemDelete(basketItem.product)}
+          name="delete"
+          aria-label="delete"
         >
           <DeleteOutlinedIcon />
         </Button>

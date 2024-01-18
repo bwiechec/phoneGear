@@ -5,6 +5,7 @@ import { ProductContextProvider } from "@/app/context/ProductContext";
 import ProductCardInfo from "@/app/components/ProductCardInfo/ProductCardInfo";
 import ProductDetails from "@/app/components/ProductDetails/ProductDetails";
 import SimilarProducts from "@/app/components/SimilarProducts/SimilarProducts";
+import axios from "axios";
 
 interface IPage {
   productId: string;
@@ -16,7 +17,6 @@ export default async function Page({ params }: { params: IPage }) {
     product.subcategory,
     params.productId
   );
-  console.log(similarProducts);
   return (
     <ProductContextProvider value={product}>
       <div className={styles.product_card_container}>
@@ -46,8 +46,8 @@ const getProductData = async (productId: string) => {
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`
   );
 
-  const res = await fetch(url.toString());
-  const data: IProductApi = await res.json();
+  const res = await axios<IProductApi>(url.toString());
+  const data: IProductApi = res.data;
 
   return {
     id: productId,
@@ -75,8 +75,8 @@ const getSimilarProductData = async (
   url.searchParams.append("equalTo", `"${productSubcategory}"`);
   url.searchParams.append("limit", '"4"');
 
-  const res = await fetch(url.toString());
-  const data: IProductApi[] = await res.json();
+  const res = await axios<IProductApi[]>(url.toString());
+  const data: IProductApi[] = res.data;
   let products = [];
   for (const key in data) {
     if (key !== productId)

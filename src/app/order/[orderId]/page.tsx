@@ -12,6 +12,7 @@ import OrderCard from "@/app/components/OrderCard/OrderCard";
 import { Typography } from "@mui/material";
 import { useSettings } from "@/app/context/SettingsContext";
 import { OrderDetails } from "@/app/components/OrderDetails/OrderDetails";
+import axios from "axios";
 
 interface IPage {
   orderId: string;
@@ -35,20 +36,19 @@ export default async function Page({ params }: { params: IPage }) {
 }
 
 const getOrderData = async (orderId: string) => {
-  const res = await fetch(
-    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order/${orderId}.json`,
-    { cache: "no-store" }
+  const res = await axios<IOrderApi>(
+    `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/order/${orderId}.json`
   );
-  const data: IOrderApi = await res.json();
+  const data: IOrderApi = res.data;
 
   return { id: orderId, ...data };
 };
 
 const getPaymentMethods = async () => {
-  const res = await fetch(
+  const res = await axios<IPaymentMethodApi[]>(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/payment_methods.json`
   );
-  const data: IPaymentMethodApi[] = await res.json();
+  const data: IPaymentMethodApi[] = res.data;
   let methods = [];
   for (const key in data) {
     methods.push({
@@ -62,10 +62,10 @@ const getPaymentMethods = async () => {
 };
 
 const getDeliveryMethods = async () => {
-  const res = await fetch(
+  const res = await axios<IDeliveryMethodApi[]>(
     `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/delivery_methods.json`
   );
-  const data: IDeliveryMethodApi[] = await res.json();
+  const data: IDeliveryMethodApi[] = res.data;
   let methods = [];
   for (const key in data) {
     methods.push({

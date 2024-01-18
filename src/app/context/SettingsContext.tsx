@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface ISettings {
@@ -38,11 +39,9 @@ export function SettingsContextProvider({
       `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/settings.json`
     );
 
-    fetch(url.toString())
-      .then((res) => res.json())
-      .then((data) => {
-        setSettings(data);
-      });
+    axios(url.toString()).then((res) => {
+      setSettings(res.data);
+    });
   }, []);
 
   return (
