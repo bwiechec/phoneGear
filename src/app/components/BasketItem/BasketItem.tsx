@@ -19,7 +19,6 @@ export default function BasketItem({
   handleQuantityChange,
   handleItemDelete,
 }: IBasketItem) {
-  console.log(basketItem.quantity);
   const [quantity, setQuantity] = useState(basketItem.quantity);
 
   useEffect(() => {

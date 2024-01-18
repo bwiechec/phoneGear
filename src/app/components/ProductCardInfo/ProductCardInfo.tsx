@@ -53,15 +53,6 @@ export default function ProductCardInfo() {
         : false
       : false;
 
-  console.log(product.price);
-  console.log(product.currency);
-  console.log(
-    product.price.toLocaleString("en-US", {
-      style: "currency",
-      currency: product.currency,
-    })
-  );
-
   return (
     <div className={styles.product_info}>
       <h4>{product.name}</h4>

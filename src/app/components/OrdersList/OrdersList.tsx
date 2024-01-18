@@ -9,7 +9,6 @@ import OrderCard from "../OrderCard/OrderCard";
 
 export default function OrdersList() {
   const { orders } = useOrders();
-  console.log(orders);
   return (
     <>
       {orders.map((order) => {

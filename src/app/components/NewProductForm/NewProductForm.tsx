@@ -35,7 +35,6 @@ export default function NewProductForm({ categories }: INewProductForm) {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<IProductApi> = (data) => {
-    console.log(data);
     axios
       .get(
         `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
@@ -91,7 +90,6 @@ export default function NewProductForm({ categories }: INewProductForm) {
         categories.sort((a, b) => (a.name > b.name ? 1 : -1));
 
         setSubcategories(categories);
-        console.log(res);
       })
       .catch((e) => {
         handleApiError();

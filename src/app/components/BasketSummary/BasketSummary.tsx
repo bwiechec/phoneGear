@@ -84,7 +84,6 @@ export default function BasketSummary({
       { method: "POST", data: JSON.stringify(order) }
     )
       .then((res) => {
-        console.log(res);
         router.refresh();
         setSnackbarProps({
           snackbarOpen: true,
@@ -98,7 +97,6 @@ export default function BasketSummary({
         }, 1000);
       })
       .catch((e) => {
-        console.log(e);
         setSnackbarProps({
           snackbarOpen: true,
           proceedMessage: "Error",
