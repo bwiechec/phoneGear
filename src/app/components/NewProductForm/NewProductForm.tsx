@@ -35,11 +35,11 @@ export default function NewProductForm({ categories }: INewProductForm) {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<IProductApi> = (data) => {
-    axios
-      .get(
-        `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
-        { method: "POST", data: JSON.stringify(data) }
-      )
+    data.description.replaceAll("\n", "\\n");
+    axios(
+      `https://phonegear-302ea-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
+      { method: "POST", data: JSON.stringify(data) }
+    )
       .then((res) => {
         router.refresh();
         setSnackbarProps({

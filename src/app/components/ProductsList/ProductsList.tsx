@@ -13,6 +13,7 @@ import {
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 import ProductListCategories from "../ProductListCategories/ProductListCategories";
 import axios from "axios";
+import { cache } from "react";
 
 interface IProductList {
   categoryId: string;

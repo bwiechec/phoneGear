@@ -3,15 +3,26 @@ import NewProductForm from "../components/NewProductForm/NewProductForm";
 import { ICategoryObject } from "../lib/types/types";
 import styles from "./page.module.css";
 import axios from "axios";
+import NewCategoryForm from "../components/NewCategoryForm/NewCategoryForm";
+import { useState } from "react";
 
 export default async function Page() {
   const mainCategories = await getMainCategoryData();
   return (
-    <div className={styles.add_product}>
-      <Typography variant="h5" fontWeight={600} mb={2}>
-        Add new product
-      </Typography>
-      <NewProductForm categories={mainCategories} />
+    <div className={styles.container}>
+      <div className={styles.add_item}>
+        <Typography variant="h5" fontWeight={600} mb={2}>
+          Add new product
+        </Typography>
+        <NewProductForm categories={mainCategories} />
+      </div>
+
+      <div className={styles.add_item}>
+        <Typography variant="h5" fontWeight={600} mb={2}>
+          Add new category
+        </Typography>
+        <NewCategoryForm categories={mainCategories} />
+      </div>
     </div>
   );
 }

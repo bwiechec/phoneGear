@@ -43,6 +43,7 @@ export default function DeliveryMethodList({
           return (
             <MenuItem value={method.id} key={method.id}>
               <Link
+                scroll={false}
                 href={`?${new URLSearchParams({
                   payment: selectedPayment.id,
                   delivery: method.id,

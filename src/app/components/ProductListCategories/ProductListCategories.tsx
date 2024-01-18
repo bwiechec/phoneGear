@@ -82,7 +82,7 @@ export default function ProductListCategories({
                 }
               >
                 <Link
-                  href={"/cases?subcategoryId=" + category.id}
+                  href={"?subcategoryId=" + category.id}
                   onClick={showCategories}
                 >
                   {category.name}

@@ -42,6 +42,11 @@ export interface ICategoryObject {
   [key: string]: ICategory;
 }
 
+export interface ICategoryApi {
+  name: string;
+  parent: string;
+}
+
 export interface ICategory {
   id: string;
   name: string;

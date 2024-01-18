@@ -17,18 +17,32 @@ export default async function Page({ params }: { params: IPage }) {
     product.subcategory,
     params.productId
   );
+  const isValidUrl = (urlString: string) => {
+    var urlPattern = new RegExp(
+      "^(https?:\\/\\/)?" + // validate protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // validate fragment locator
+    return !!urlPattern.test(urlString);
+  };
   return (
     <ProductContextProvider value={product}>
       <div className={styles.product_card_container}>
         <div className={styles.product_card}>
           <div className={styles.product_card_image}>
-            <Image
-              src={product.imageUrl}
-              alt={product.name}
-              width={532}
-              height={582}
-              style={{ height: "auto" }}
-            />
+            {isValidUrl(product.imageUrl) && (
+              <Image
+                src={product.imageUrl}
+                alt={product.name}
+                width={532}
+                height={582}
+                style={{ height: "auto" }}
+              />
+            )}
           </div>
           <div className={styles.product_card_data}>
             <ProductCardInfo />
